@@ -1,10 +1,19 @@
 import React from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import { Add } from '@material-ui/icons';
+import { Add, Search, Explore,Book,LibraryBooks, SwapCalls } from '@material-ui/icons';
+import {Link} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    // root: {
+    //   width: 500,
+    // },
+});
 
 const BottomNavbar = () => {
     const [value, setValue] = React.useState(0);
+    const classes = useStyles();
 
     return (
         <BottomNavigation
@@ -12,9 +21,13 @@ const BottomNavbar = () => {
         onChange={(event, newValue) => {
             setValue(newValue);
           }}
-        showLabels
+        className={classes.root}
         >
-          <BottomNavigationAction label="Add Book" icon={<Add />}></BottomNavigationAction>
+          <BottomNavigationAction component={Link} to="/explore" value="explore" label="Explore" icon={<Explore />}></BottomNavigationAction>
+          <BottomNavigationAction component={Link} to="/add_book" label="Add Book" value="add_book" icon={<Add />}></BottomNavigationAction>
+          <BottomNavigationAction component={Link} to="/reading" label="Reading" value="reading" icon={<Book />}></BottomNavigationAction>
+          <BottomNavigationAction component={Link} to="/giveaway" label="Giveaway" value="giveaway" icon={<LibraryBooks />}></BottomNavigationAction>  
+          <BottomNavigationAction component={Link} to="/requests" label="Requests" value="requests" icon={<SwapCalls />}></BottomNavigationAction>
         </BottomNavigation>
     );
 };

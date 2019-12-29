@@ -1,7 +1,14 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Routes } from './Routes';
+import Routes from "./Routes";
 import BottomNavbar from './components/BottomNavbar';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  root: {
+    width: 500,
+  },
+});
 
 function App() {
   return (
@@ -12,12 +19,9 @@ function App() {
           <Routes></Routes>
         </main>
         <div>
-          <BottomNavbar/>
+          <BottomNavbar />
         </div>
-
       </div>
-
-
     </BrowserRouter>
   );
 }
