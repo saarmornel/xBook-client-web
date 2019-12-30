@@ -1,29 +1,56 @@
 import React from 'react';
-import { Switch, Route, PrivateRoute } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
 import Explore from './screens/Explore';
 import AddBook from './screens/AddBook';
 import Giveaway from './screens/Giveaway';
 import Reading from './screens/Reading';
 import Requests from './screens/Requests';
+import SignIn from './screens/SignIn';
+
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+function PrivateRoute({ children, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          fakeAuth.isAuthenticated ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/sign_in",
+                state: { from: location }
+              }}
+            />
+          )
+        }
+      />
+    );
+  }
+
 
 const Routes = () => {
     return (
         <Switch>
-            <Route exact path="/explore">
+            <Route exact path="/sign_in">
+                <SignIn></SignIn>
+            </Route>
+            <PrivateRoute exact path="/explore">
                 <Explore></Explore>
-            </Route>
-            <Route exact path="/add_book">
+            </PrivateRoute>
+            <PrivateRoute exact path="/add_book">
                 <AddBook></AddBook>
-            </Route>
-            <Route exact path="/reading">
+            </PrivateRoute>
+            <PrivateRoute exact path="/reading">
                 <Reading></Reading>
-            </Route>
-            <Route exact path="/giveaway">
+            </PrivateRoute>
+            <PrivateRoute exact path="/giveaway">
                 <Giveaway></Giveaway>
-            </Route>
-            <Route exact path="/requests">
+            </PrivateRoute>
+            <PrivateRoute exact path="/requests">
                 <Requests></Requests>
-            </Route>
+            </PrivateRoute>
         </Switch>
     );
 };

@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 });
 
 const BottomNavbar = () => {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState('explore');
     const classes = useStyles();
 
     return (
@@ -23,7 +23,7 @@ const BottomNavbar = () => {
           }}
         className={classes.root}
         >
-          <BottomNavigationAction component={Link} to="/explore" value="explore" label="Explore" icon={<Explore />}></BottomNavigationAction>
+          <BottomNavigationAction component={Link} to="/explore" value="explore" label="Explore" icon={<Search />}></BottomNavigationAction>
           <BottomNavigationAction component={Link} to="/add_book" label="Add Book" value="add_book" icon={<Add />}></BottomNavigationAction>
           <BottomNavigationAction component={Link} to="/reading" label="Reading" value="reading" icon={<Book />}></BottomNavigationAction>
           <BottomNavigationAction component={Link} to="/giveaway" label="Giveaway" value="giveaway" icon={<LibraryBooks />}></BottomNavigationAction>  
