@@ -22,7 +22,6 @@ export const searchBook = async (bookName) => {
         return formattedBooks;
     } catch(error) {
         console.log('httpError: ',error);
-        console.log('response: ',res);
     }
 
 }
@@ -35,6 +34,5 @@ export const getBookById = async (id) => {
         return formattedBook;
     } catch(error) {
         console.log('httpError: ',error);
-        console.log('response: ',res);
     }
 }
