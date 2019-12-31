@@ -4,6 +4,14 @@ import Routes from "./Routes";
 import BottomNavbar from './components/BottomNavbar';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline, Container } from '@material-ui/core';
+import userStore from './stores/user.store';
+import authStore from './stores/auth.store';
+import { Provider } from 'mobx-react';
+
+const stores = {
+  userStore,
+  authStore
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,20 +33,22 @@ function App() {
   const classes = useStyles();
 
   return (
-    <BrowserRouter>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Container component="main" className={classes.main} maxWidth="sm">
-          <Routes />
-        </Container>
-
-        <footer className={classes.footer}>
-          <Container component="nav" maxWidth="sm" disableGutters>
-            <BottomNavbar />
+    <Provider {...stores}>
+      <BrowserRouter>
+        <div className={classes.root}>
+          <CssBaseline />
+          <Container component="main" className={classes.main} maxWidth="sm">
+            <Routes />
           </Container>
-        </footer>
-      </div>
-    </BrowserRouter>
+
+          <footer className={classes.footer}>
+            <Container component="nav" maxWidth="sm" disableGutters>
+              <BottomNavbar />
+            </Container>
+          </footer>
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

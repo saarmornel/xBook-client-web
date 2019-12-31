@@ -38,21 +38,21 @@ class UserStore {
 
     @action pullUsers() {
         this.isLoadingUsers = true;
-        return getUsers(usersPage)
+        return getUsers(this.usersPage)
         .then( action(users => { this.users.push(users) }) )
         .finally(action(() => { this.isLoadingUsers = false; this.usersPage++; }));
     }
 
     @action addBook(id, available) {
         this.currentUser.books.push({id: id, available});
-        return addBook(id, isAvailable)
+        return addBook(id, available)
         .catch(action(err => { this.pullCurrentUser(); throw err }));
     }
 
     @action updateBook(id, available) {
         const book = this.currentUser.books.find(book => book.id === id);
         book.available = available;
-        return updateBook(id, isAvailable)
+        return updateBook(id, available)
         .catch(action(err => { this.pullCurrentUser(); throw err }));
     }
 
