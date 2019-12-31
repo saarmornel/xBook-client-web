@@ -40,7 +40,7 @@ const SignIn = inject('authStore')(observer(
     return (
         <div>
             <p>You must log in to view the page</p>
-            <button onClick={login}>Log in</button>
+            <a href="https://glacial-fortress-14735.herokuapp.com/api/auth/facebook/" class="btn btn-primary"><span class="fa fa-facebook"></span> Login with Facebook</a>
         </div>
     );
     }
