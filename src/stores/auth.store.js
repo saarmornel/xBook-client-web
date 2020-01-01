@@ -9,7 +9,7 @@ class AuthStore {
 
     setToken(token) {
         this.isLoading = true;
-        AsyncStorage.setItem(authCookie, token)
+        return AsyncStorage.setItem(authCookie, token)
         .then( action(() => {this.token = token}) )
         .then(() => userStore.pullCurrentUser())
         .finally( action(() => {this.isLoading = false}) );
@@ -17,15 +17,16 @@ class AuthStore {
 
     logout() {
         this.isLoading = true;
-        AsyncStorage.removeItem(authCookie)
+        return AsyncStorage.removeItem(authCookie)
         .then( action(() => {this.token = undefined}) )
         .then(() => userStore.forgetCurrentUser())
         .finally( action(() => {this.isLoading = false}) );
     }
 
     loadToken() {
+        if(this.token) return this.token;
         this.isLoading = true;
-        AsyncStorage.getItem(authCookie)
+        return AsyncStorage.getItem(authCookie)
         .then( action((token) => {this.token = token}) )
         .then(() => this.token ? userStore.pullCurrentUser() : null)
         .finally( action(() => {this.isLoading = false}) );

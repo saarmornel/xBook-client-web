@@ -6,6 +6,7 @@ import Giveaway from './screens/Giveaway';
 import Reading from './screens/Reading';
 import Requests from './screens/Requests';
 import SignIn from './screens/SignIn';
+import authStore from './stores/auth.store';
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
@@ -14,7 +15,7 @@ function PrivateRoute({ children, ...rest }) {
       <Route
         {...rest}
         render={({ location }) =>
-          false ? (
+        authStore.loadToken() ? (
             children
           ) : (
             <Redirect
@@ -33,9 +34,6 @@ function PrivateRoute({ children, ...rest }) {
 const Routes = () => {
     return (
         <Switch>
-            <Route exact path="/sign_in">
-                <SignIn></SignIn>
-            </Route>
             <PrivateRoute exact path="/explore">
                 <Explore></Explore>
             </PrivateRoute>
@@ -51,6 +49,9 @@ const Routes = () => {
             <PrivateRoute exact path="/requests">
                 <Requests></Requests>
             </PrivateRoute>
+            <Route exact path="/sign_in">
+                <SignIn></SignIn>
+            </Route>
         </Switch>
     );
 };
