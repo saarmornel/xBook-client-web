@@ -8,39 +8,41 @@ import {
     useHistory,
     useLocation
   } from "react-router-dom";
-  import { inject, observer } from 'mobx-react';
-  import { authFacebook } from "../services/auth.service";
+import { inject, observer } from 'mobx-react';
+
+const qs = require('query-string');
 
 const SignIn = inject('authStore')(observer(
     (props) => {
     let history = useHistory();
-    // let location = useLocation();
-    // let { from } = location.state || { from: { pathname: "/" } };
+    let location = useLocation();
+    const authToken = qs.parse(location.search, { ignoreQueryPrefix: true }).auth_token;
 
     const onFailed = async () => {
-        console.log('failed');
+        console.log('auth failed');
     }
     
     const onSuccess = async (token) => {
+        console.log('auth succeeded');
         await props.authStore.setToken(token);
         history.replace('/explore')
     }
 
-    
-    let login = async () => {
-        const response = await authFacebook();
-        console.log(response);
-        if(response.success) {
-            await onSuccess(response.auth_token);
+    console.log(authToken)
+    if(authToken) {
+        if(authToken==='null') {
+            onFailed();
         } else {
-            await onFailed();
+            onSuccess();
         }
-    };
+    }
+
+
 
     return (
         <div>
             <p>You must log in to view the page</p>
-            <a href="https://glacial-fortress-14735.herokuapp.com/api/auth/facebook/" class="btn btn-primary"><span class="fa fa-facebook"></span> Login with Facebook</a>
+            <a href="https://glacial-fortress-14735.herokuapp.com/api/auth/facebook/" > Login with Facebook</a>
         </div>
     );
     }
