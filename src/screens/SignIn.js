@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -16,8 +16,18 @@ const SignIn =
     (props) => {
         let history = useHistory();
         let location = useLocation();
-        const authToken = qs.parse(location.search, { ignoreQueryPrefix: true }).auth_token;
-
+        useEffect(()=>{
+            const authToken = qs.parse(location.search, { ignoreQueryPrefix: true }).auth_token;
+            console.log(authToken)
+            if (authToken) {
+                if (authToken === 'null') {
+                    onFailed();
+                } else {
+                    onSuccess(authToken);
+                }
+            }
+        })
+        
         const onFailed = async () => {
             console.log('auth failed');
         }
@@ -26,15 +36,6 @@ const SignIn =
             console.log('auth succeeded');
             await props.authStore.setToken(token);
             history.replace('/');
-        }
-
-        console.log(authToken)
-        if (authToken) {
-            if (authToken === 'null') {
-                onFailed();
-            } else {
-                onSuccess(authToken);
-            }
         }
 
         return (

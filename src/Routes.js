@@ -7,6 +7,7 @@ import Reading from './screens/Reading';
 import Requests from './screens/Requests';
 import SignIn from './screens/SignIn';
 import { inject, observer } from 'mobx-react';
+import MainLayout from './components/MainLayout';
 
 const Routes = (props) => {
 
@@ -32,19 +33,19 @@ const Routes = (props) => {
   return (
     <Switch>
       <PrivateRoute path="/explore">
-        <Explore></Explore>
+        <MainLayout><Explore /></MainLayout>
       </PrivateRoute>
       <PrivateRoute path="/add_book">
-        <AddBook></AddBook>
+        <MainLayout><Explore /></MainLayout>
       </PrivateRoute>
       <PrivateRoute path="/reading">
-        <Reading></Reading>
+        <MainLayout><Explore /></MainLayout>
       </PrivateRoute>
       <PrivateRoute path="/giveaway">
-        <Giveaway></Giveaway>
+        <MainLayout><Explore /></MainLayout>
       </PrivateRoute>
       <PrivateRoute path="/requests">
-        <Requests></Requests>
+        <MainLayout><Explore /></MainLayout>
       </PrivateRoute>
       <Route path="/sign_in">
         <SignIn></SignIn>
