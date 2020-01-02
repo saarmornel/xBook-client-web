@@ -47,19 +47,25 @@ export const deleteBook = async (bookId) => {
 }
 
 export const getMyUser = () => {
-    return fetch(userUrl + '/me')
+    return fetch(userUrl + '/me',{
+        headers
+    })
     .then(handleErrors).then(json)
     .then(populateUserBooks);
 }
 
 export const getUsers = (page = 0) => {
-    return fetch(`${userUrl}?page=${page}`)
+    return fetch(`${userUrl}?page=${page}`,{
+        headers
+    })
     .then(handleErrors).then(json)
     .then(populateUsersBooks);
 }
 
 export const getUser = (id) => {
-    return fetch(`${userUrl}/${id}`)
+    return fetch(`${userUrl}/${id}`,{
+        headers
+    })
     .then(handleErrors).then(json)
     .then(populateUserBooks);
 }
