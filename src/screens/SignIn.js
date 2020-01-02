@@ -25,7 +25,7 @@ const SignIn =
         const onSuccess = async (token) => {
             console.log('auth succeeded');
             await props.authStore.setToken(token);
-            history.replace('/explore')
+            history.replace('/');
         }
 
         console.log(authToken)
@@ -33,11 +33,9 @@ const SignIn =
             if (authToken === 'null') {
                 onFailed();
             } else {
-                onSuccess();
+                onSuccess(authToken);
             }
         }
-
-
 
         return (
             <div>

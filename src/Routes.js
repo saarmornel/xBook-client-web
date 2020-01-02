@@ -15,13 +15,12 @@ const Routes = (props) => {
       <Route
         {...rest}
         render={({ location }) =>
-          props.authStore.loadToken() ? (
+          props.authStore.isLoggedIn ? (
             children
           ) : (
               <Redirect
                 to={{
                   pathname: "/sign_in",
-                  state: { from: location }
                 }}
               />
             )
@@ -29,27 +28,34 @@ const Routes = (props) => {
       />
     );
   }
-
+  console.log(props.authStore.isLoggedIn)
   return (
     <Switch>
-      <PrivateRoute exact path="/explore">
+      <PrivateRoute path="/explore">
         <Explore></Explore>
       </PrivateRoute>
-      <PrivateRoute exact path="/add_book">
+      <PrivateRoute path="/add_book">
         <AddBook></AddBook>
       </PrivateRoute>
-      <PrivateRoute exact path="/reading">
+      <PrivateRoute path="/reading">
         <Reading></Reading>
       </PrivateRoute>
-      <PrivateRoute exact path="/giveaway">
+      <PrivateRoute path="/giveaway">
         <Giveaway></Giveaway>
       </PrivateRoute>
-      <PrivateRoute exact path="/requests">
+      <PrivateRoute path="/requests">
         <Requests></Requests>
       </PrivateRoute>
-      <Route exact path="/sign_in">
+      <Route path="/sign_in">
         <SignIn></SignIn>
       </Route>
+      <PrivateRoute path="/">
+        <Redirect
+                to={{
+                  pathname: "/explore",
+                }}
+        />
+      </PrivateRoute>
     </Switch>
   );
 };

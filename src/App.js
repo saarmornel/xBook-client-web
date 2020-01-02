@@ -29,9 +29,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 function App() {
   const classes = useStyles();
-
+  loadToken(stores);
   return (
     <Provider {...stores}>
       <BrowserRouter>
@@ -53,3 +54,12 @@ function App() {
 }
 
 export default App;
+
+
+const loadToken = async (stores) => {
+  try {
+      await stores.authStore.loadToken();
+  } catch {
+      await stores.authStore.logout();
+  }
+}

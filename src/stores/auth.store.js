@@ -1,4 +1,4 @@
-import {observable, autorun, action, decorate} from 'mobx';
+import {observable, autorun, action, decorate, computed} from 'mobx';
 import AsyncStorage from '@callstack/async-storage';
 import { authCookie } from "../config";
 import userStore from './user.store';
@@ -32,13 +32,18 @@ class AuthStore {
         .finally( action(() => {this.isLoading = false}) );
     }
 
+    get isLoggedIn() {
+        return this.token ? true : false;
+    }
+
 }
 decorate(AuthStore, {
     token: observable,
     isLoading: observable,
     setToken: action,
     logout: action,
-    loadToken: action
+    loadToken: action,
+    isLoggedIn: computed,
 });
 
 export default new AuthStore();
