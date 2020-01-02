@@ -6,9 +6,10 @@ import Giveaway from './screens/Giveaway';
 import Reading from './screens/Reading';
 import Requests from './screens/Requests';
 import SignIn from './screens/SignIn';
+import { inject, observer } from 'mobx-react';
 
 const Routes = (props) => {
-  
+
   const PrivateRoute = ({ children, ...rest }) => {
     return (
       <Route
