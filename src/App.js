@@ -4,6 +4,8 @@ import Routes from "./Routes";
 import userStore from './stores/user.store';
 import authStore from './stores/auth.store';
 import { Provider } from 'mobx-react';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const stores = {
   userStore,
@@ -15,7 +17,8 @@ function App() {
   return (
     <Provider {...stores}>
       <BrowserRouter>
-            <Routes />
+            {(stores.authStore.isLoading) ? <CircularProgress /> : <Routes />}
+            
       </BrowserRouter>
     </Provider>
   );
