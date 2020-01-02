@@ -17,8 +17,7 @@ function App() {
   return (
     <Provider {...stores}>
       <BrowserRouter>
-            {(stores.authStore.isLoading) ? <CircularProgress /> : <Routes />}
-            
+            <Routes />
       </BrowserRouter>
     </Provider>
   );
