@@ -4,12 +4,13 @@ import { authCookie } from "../config";
 import userStore from './user.store';
 
 class AuthStore {
-    token;
-    isLoading = false;
+    token=null;
+    isLoading = true;
 
     setToken(token) {
+        console.log('setToken')
         this.isLoading = true;
-        return AsyncStorage.setItem(authCookie, token)
+        AsyncStorage.setItem(authCookie, token)
         .then( action(() => {this.token = token}) )
         .then(() => userStore.pullCurrentUser())
         .finally( action(() => {this.isLoading = false}) );
@@ -17,16 +18,15 @@ class AuthStore {
 
     logout() {
         this.isLoading = true;
-        return AsyncStorage.removeItem(authCookie)
+        AsyncStorage.removeItem(authCookie)
         .then( action(() => {this.token = undefined}) )
         .then(() => userStore.forgetCurrentUser())
         .finally( action(() => {this.isLoading = false}) );
     }
 
     loadToken() {
-        if(this.token) return this.token;
         this.isLoading = true;
-        return AsyncStorage.getItem(authCookie)
+        AsyncStorage.getItem(authCookie)
         .then( action((token) => {this.token = token}) )
         .then(() => this.token ? userStore.pullCurrentUser() : null)
         .finally( action(() => {this.isLoading = false}) );

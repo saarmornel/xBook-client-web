@@ -24,7 +24,6 @@ const MainLayout = (props) => {
 
     return (
         <div className={classes.root}>
-          <CssBaseline />
           <Container component="main" className={classes.main} maxWidth="sm">
             {props.children}
           </Container>

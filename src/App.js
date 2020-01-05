@@ -6,6 +6,10 @@ import authStore from './stores/auth.store';
 import { Provider } from 'mobx-react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { configure, autorun } from 'mobx';
+import { CssBaseline, Container } from '@material-ui/core';
+
+configure({ enforceActions: 'always' });
 
 const stores = {
   userStore,
@@ -13,9 +17,10 @@ const stores = {
 };
 
 function App() {
-  useEffect(()=> {loadToken(stores)})
+  useEffect(()=> {loadToken(stores)},[])
   return (
     <Provider {...stores}>
+      <CssBaseline />
       <BrowserRouter>
             <Routes />
       </BrowserRouter>
@@ -26,10 +31,10 @@ function App() {
 export default App;
 
 
-const loadToken = async (stores) => {
+const loadToken = (stores) => {
   try {
-      await stores.authStore.loadToken();
+      stores.authStore.loadToken();
   } catch {
-      await stores.authStore.logout();
+      stores.authStore.logout();
   }
 }

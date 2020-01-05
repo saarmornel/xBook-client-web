@@ -9,6 +9,7 @@ import {
     useLocation
 } from "react-router-dom";
 import { inject, observer } from 'mobx-react';
+import { serverUrl } from "../config";
 
 const qs = require('query-string');
 
@@ -18,7 +19,7 @@ const SignIn =
         let location = useLocation();
         useEffect(()=>{
             const authToken = qs.parse(location.search, { ignoreQueryPrefix: true }).auth_token;
-            console.log(authToken)
+
             if (authToken) {
                 if (authToken === 'null') {
                     onFailed();
@@ -41,7 +42,7 @@ const SignIn =
         return (
             <div>
                 <p>You must log in to view the page</p>
-                <a href="https://glacial-fortress-14735.herokuapp.com/api/auth/facebook/" > Login with Facebook</a>
+                <a href={`${serverUrl}/api/auth/facebook/`} > Login with Facebook</a>
             </div>
         );
     }

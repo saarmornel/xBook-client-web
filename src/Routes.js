@@ -9,27 +9,10 @@ import SignIn from './screens/SignIn';
 import { inject, observer } from 'mobx-react';
 import MainLayout from './components/MainLayout';
 
+import PrivateRoute from "./components/PrivateRoute";
+
 const Routes = (props) => {
 
-  const PrivateRoute = ({ children, ...rest }) => {
-    return (
-      <Route
-        {...rest}
-        render={({ location }) =>
-          props.authStore.isLoggedIn ? (
-            children
-          ) : (
-              <Redirect
-                to={{
-                  pathname: "/sign_in",
-                }}
-              />
-            )
-        }
-      />
-    );
-  }
-  console.log(props.authStore.isLoggedIn)
   return (
     <Switch>
       <PrivateRoute path="/explore">
@@ -50,7 +33,7 @@ const Routes = (props) => {
       <Route path="/sign_in">
         <SignIn></SignIn>
       </Route>
-      <PrivateRoute path="/">
+      <PrivateRoute exact path="/">
         <Redirect
                 to={{
                   pathname: "/explore",
