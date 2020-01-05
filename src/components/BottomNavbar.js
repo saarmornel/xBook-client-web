@@ -1,17 +1,18 @@
 import React from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import { Add, Search, Explore,Book,LibraryBooks, SwapCalls } from '@material-ui/icons';
+import { Add, Search, Explore,Book,LibraryBooks, SwapCalls, Height } from '@material-ui/icons';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
       width: '100%',
+      maxWidth: theme.breakpoints.width('sm'),
       position: 'fixed',
       bottom: 0
-    },
-});
+    }
+}));
 
 const BottomNavbar = () => {
     const [value, setValue] = React.useState('explore');
