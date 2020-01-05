@@ -27,7 +27,6 @@ const BottomNavbar = () => {
         className={classes.root}
         >
           <BottomNavigationAction component={Link} to="/explore" value="explore" label="Explore" icon={<Search />}></BottomNavigationAction>
-          <BottomNavigationAction component={Link} to="/reading" label="Reading" value="reading" icon={<Book />}></BottomNavigationAction>
           <BottomNavigationAction component={Link} to="/giveaway" label="Giveaway" value="giveaway" icon={<LibraryBooks />}></BottomNavigationAction>  
           <BottomNavigationAction component={Link} to="/requests" label="Requests" value="requests" icon={<SwapCalls />}></BottomNavigationAction>
         </BottomNavigation>

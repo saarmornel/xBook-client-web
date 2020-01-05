@@ -1,9 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
 import Explore from './screens/Explore';
-import AddBook from './screens/AddBook';
 import Giveaway from './screens/Giveaway';
-import Reading from './screens/Reading';
 import Requests from './screens/Requests';
 import SignIn from './screens/SignIn';
 import { inject, observer } from 'mobx-react';
@@ -18,17 +16,11 @@ const Routes = (props) => {
       <PrivateRoute path="/explore">
         <MainLayout><Explore /></MainLayout>
       </PrivateRoute>
-      <PrivateRoute path="/add_book">
-        <MainLayout><Explore /></MainLayout>
-      </PrivateRoute>
-      <PrivateRoute path="/reading">
-        <MainLayout><Explore /></MainLayout>
-      </PrivateRoute>
       <PrivateRoute path="/giveaway">
-        <MainLayout><Explore /></MainLayout>
+        <MainLayout><Giveaway /></MainLayout>
       </PrivateRoute>
       <PrivateRoute path="/requests">
-        <MainLayout><Explore /></MainLayout>
+        <MainLayout><Requests /></MainLayout>
       </PrivateRoute>
       <Route path="/sign_in">
         <SignIn></SignIn>

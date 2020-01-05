@@ -1,10 +1,10 @@
 import React from 'react';
+import BookGrid from "../components/BookGrid";
 
+const books = [];
 const Giveaway = () => {
     return (
-        <div>
-            
-        </div>
+        <BookGrid books={books}></BookGrid>
     );
 };
 
