@@ -6,9 +6,11 @@ import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    // root: {
-    //   width: 500,
-    // },
+    root: {
+      width: '100%',
+      position: 'fixed',
+      bottom: 0
+    },
 });
 
 const BottomNavbar = () => {
@@ -24,7 +26,6 @@ const BottomNavbar = () => {
         className={classes.root}
         >
           <BottomNavigationAction component={Link} to="/explore" value="explore" label="Explore" icon={<Search />}></BottomNavigationAction>
-          <BottomNavigationAction component={Link} to="/add_book" label="Add Book" value="add_book" icon={<Add />}></BottomNavigationAction>
           <BottomNavigationAction component={Link} to="/reading" label="Reading" value="reading" icon={<Book />}></BottomNavigationAction>
           <BottomNavigationAction component={Link} to="/giveaway" label="Giveaway" value="giveaway" icon={<LibraryBooks />}></BottomNavigationAction>  
           <BottomNavigationAction component={Link} to="/requests" label="Requests" value="requests" icon={<SwapCalls />}></BottomNavigationAction>
