@@ -29,22 +29,22 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const BookTile = ({book,children}) => {
+const BookCard = ({thumbnail,id,author,title,children}) => {
     const classes = useStyles();
     return (
-        <Grid item key={book.id} xs={12} sm={6} md={4}>
+        <Grid item key={id} xs={12} sm={6} md={4}>
             <Card className={classes.card}>
                 <CardMedia
                     className={classes.cardMedia}
-                    image={book.thumbnail}
+                    image={thumbnail}
                     title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {book.title}
+                        {title}
                     </Typography>
                     <Typography>
-                        {book.author}
+                        {author}
                     </Typography>
                 </CardContent>
                 {children}
@@ -61,11 +61,10 @@ const BookTile = ({book,children}) => {
     );
 };
 
-BookTile.propTypes = {
-    // thumbnail: PropTypes.string,
-    // title: PropTypes.string,
-    // author: PropTypes.string,
-    book: PropTypes.object
+BookCard.propTypes = {
+    thumbnail: PropTypes.string,
+    title: PropTypes.string,
+    author: PropTypes.string,
 };
 
-export default BookTile;
+export default BookCard;

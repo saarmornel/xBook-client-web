@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BookTile from './BookTile';
+import BookTile from './BookCard';
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Grid } from "@material-ui/core";
 
@@ -17,7 +17,7 @@ const BookGrid = props => {
         <Container className={classes.cardGrid} maxWidth="md">
             <Grid container spacing={4}>
                 {props.books.map(book => 
-                    <BookTile book={book}>{props.children}</BookTile>
+                    <BookTile {...book}>{props.children}</BookTile>
                 )}
             </Grid>
         </Container>
