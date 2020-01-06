@@ -7,11 +7,12 @@ const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
       flexDirection: 'column',
-      minHeight: '100vh',
+      height: '100vh',
     },
     main: {
       marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(2)+56,
+      marginBottom: theme.spacing(2),
+      overflowY: 'auto',
     },
     footer: {
       marginTop: 'auto',

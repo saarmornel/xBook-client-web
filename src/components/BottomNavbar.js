@@ -9,8 +9,8 @@ const useStyles = makeStyles(theme => ({
     root: {
       width: '100%',
       maxWidth: theme.breakpoints.width('sm'),
-      position: 'fixed',
-      bottom: 0
+      // position: 'fixed',
+      // bottom: 0
     }
 }));
 
