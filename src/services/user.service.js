@@ -9,11 +9,13 @@ const userApi = '/api/user';
 const userUrl = serverUrl + userApi;
 const booksUrl = userUrl + '/books';
 
+export const populateBook = async (book) => {
+    const data = await getBook(book.id);
+    return {...book, data };
+}
+
 const populateUserBooks = async (user) => {
-    user.books = await Promise.all(user.books.map(async (book) => {
-        book.data = await getBook(book.id);
-        return book;
-    } ) );
+    user.books = await Promise.all(user.books.map(populateBook) );
     return user;
 }
 

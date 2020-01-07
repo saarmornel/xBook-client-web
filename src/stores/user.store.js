@@ -1,9 +1,9 @@
 import {observable, autorun, action, computed, decorate} from 'mobx';
-import { getMyUser, getUsers, addBook, updateBook, deleteBook, getUser } from "../services/user.service";
+import { getMyUser, getUsers, addBook, updateBook, deleteBook, getUser, populateBook } from "../services/user.service";
 
-const getBooks = (user,available) => user.books.filter(
+const getBooks = (user,available) => user && user.books && user.books.filter(
     book => book.available == available
-).map(book=>book.id);
+).map(book=>book.data);
 
 class UserStore {
     users = [];     // users.books will be with only available books
@@ -24,28 +24,32 @@ class UserStore {
 
     pullCurrentUser() {
         this.isLoadingCurrentUser = true;
-        return getMyUser()
+        getMyUser()
         .then( action(user => { this.currentUser = user }) )
         .finally(action(() => { this.isLoadingCurrentUser = false }));
     }
 
     pullSelectedUser(id) {
         this.isLoadingSelectedUser = true;
-        return getUser(id)
+        getUser(id)
         .then( action(user => { this.selectedUser = user }) )
         .finally(action(() => { this.isLoadingSelectedUser = false }));
     }
 
     pullUsers() {
         this.isLoadingUsers = true;
-        return getUsers(this.usersPage)
+        getUsers(this.usersPage)
         .then( action(users => { this.users.push(users) }) )
         .finally(action(() => { this.isLoadingUsers = false; this.usersPage++; }));
     }
 
     addBook(id, available) {
-        this.currentUser.books.push({id: id, available});
-        return addBook(id, available)
+        const book = this.currentUser.books.find(book => book.id === id);
+        if(!book) return;
+        populateBook({id: id, available})
+        .then(
+            action(this.currentUser.books.push)
+        ).then(addBook(id, available))
         .catch(action(err => { this.pullCurrentUser(); throw err }));
     }
 

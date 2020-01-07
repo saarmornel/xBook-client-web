@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
       flexDirection: 'column',
     },
     cardMedia: {
-      paddingTop: '56.25%', // 16:9
+      height: 160,
+      width: 100
     },
     cardContent: {
       flexGrow: 1,
@@ -40,7 +41,7 @@ const BookCard = ({thumbnail,id,author,title,children}) => {
                     title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h6" component="h2">
                         {title}
                     </Typography>
                     <Typography>
