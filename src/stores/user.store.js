@@ -41,7 +41,7 @@ class UserStore {
         this.isLoadingUsers = true;
         getUsers(this.usersPage)
         .then( action(users => { this.users.push(users) }) )
-        .finally(action(() => { this.isLoadingUsers = false; this.usersPage++; }));
+        .finally(action(() => { this.isLoadingUsers = false; }));
     }
 
     addBook(id, available) {
