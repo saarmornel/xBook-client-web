@@ -1,5 +1,6 @@
-import {observable, autorun, action, computed, decorate} from 'mobx';
+import {observable, autorun, action, computed, decorate, reaction, runInAction} from 'mobx';
 import { getMyUser, getUsers, addBook, updateBook, deleteBook, getUser, populateBook } from "../services/user.service";
+import authStore from "./auth.store";
 
 const getBooks = (user,available) => user && user.books && user.books.filter(
     book => book.available == available
@@ -12,7 +13,7 @@ class UserStore {
     isLoadingCurrentUser;
     selectedUser;
     isLoadingSelectedUser;
-    usersPage = 0;
+    usersPage;
 
     get myAvailableBooks() {
         return getBooks(this.currentUser, true)
@@ -44,7 +45,6 @@ class UserStore {
     }
 
     addBook(id, available) {
-        console.log({id: id, available})
         const book = this.currentUser.books.find(book => book.id === id);
         if(book) return;
         populateBook({id: id, available})
@@ -89,7 +89,30 @@ decorate(UserStore, {
     addBook: action,
     updateBook:action,
     deleteBook: action,
-    forgetCurrentUser: action
+    forgetCurrentUser: action,
+    usersPage: observable
 })
 
-export default new UserStore();
+const userStore = new UserStore();
+export default userStore;
+
+reaction(()=>userStore.usersPage,() => {
+    userStore.pullUsers();
+},
+{
+    onError(e) {
+        console.error('error load user data')
+    }
+});
+
+reaction(()=>authStore.token,() => {
+    runInAction(()=>{
+        userStore.usersPage = 0;
+    });
+    userStore.pullCurrentUser();
+},
+{
+    onError(e) {
+        console.error('error load user data')
+    }
+});
