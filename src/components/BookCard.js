@@ -41,7 +41,7 @@ const BookCard = ({thumbnail,id,author,title,children}) => {
                         {title}
                     </Typography>
                     <Typography noWrap variant="subtitle1" color="textSecondary">
-                        {author}
+                        by {author}
                     </Typography>
                   </CardContent>
 
