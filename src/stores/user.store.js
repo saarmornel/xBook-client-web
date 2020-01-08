@@ -44,11 +44,12 @@ class UserStore {
     }
 
     addBook(id, available) {
+        console.log({id: id, available})
         const book = this.currentUser.books.find(book => book.id === id);
-        if(!book) return;
+        if(book) return;
         populateBook({id: id, available})
         .then(
-            action(this.currentUser.books.push)
+            action(book=>this.currentUser.books.push(book))
         ).then(addBook(id, available))
         .catch(action(err => { this.pullCurrentUser(); throw err }));
     }

@@ -11,52 +11,40 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import { Hidden } from '@material-ui/core';
+
+const image = {height: 160,width: 100 }
 
 const useStyles = makeStyles(theme => ({
     card: {
-      height: '100%',
       display: 'flex',
-      flexDirection: 'column',
+      height: image.height,
     },
-    cardMedia: {
-      height: 160,
-      width: 100
-    },
-    cardContent: {
-      flexGrow: 1,
+    content: {
+      width: '50vw'
     },
   }));
 
 const BookCard = ({thumbnail,id,author,title,children}) => {
     const classes = useStyles();
+    const theme = useTheme();
     return (
-        <Grid item key={id} xs={12} sm={6} md={4}>
+        <Grid item key={id} xs={12} sm={12} md={12}>
             <Card className={classes.card}>
-                <CardMedia
-                    className={classes.cardMedia}
-                    image={thumbnail}
-                    title="Image title"
-                />
-                <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h6" component="h2">
+                  <img src={thumbnail}/>
+
+                  <CardContent className={classes.content}>
+                    <Typography noWrap component="h5" variant="subtitle1">
                         {title}
                     </Typography>
-                    <Typography>
+                    <Typography noWrap variant="subtitle1" color="textSecondary">
                         {author}
                     </Typography>
-                </CardContent>
-                {children}
-                {/* <CardActions>
-                    <Button size="small" color="primary">
-                        View
-                    </Button>
-                    <Button size="small" color="primary">
-                        Edit
-                    </Button>
-                </CardActions> */}
+                  </CardContent>
+
             </Card>
         </Grid>
     );

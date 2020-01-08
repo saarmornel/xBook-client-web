@@ -6,8 +6,8 @@ import BookCard from './BookCard';
 
 const useStyle = makeStyles(theme => ({
     cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
+        // paddingTop: theme.spacing(1),
+        // paddingBottom: theme.spacing(8),
       },
 }))
 
