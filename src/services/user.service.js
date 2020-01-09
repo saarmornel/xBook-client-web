@@ -20,7 +20,7 @@ const populateUserBooks = async (user) => {
 }
 
 const populateUsersBooks = async (users) => {
-    const newUsers = await users.map( populateUserBooks );
+    const newUsers = await Promise.all(users.map( populateUserBooks ));
     return newUsers;
 }
 
