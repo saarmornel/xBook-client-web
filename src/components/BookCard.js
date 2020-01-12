@@ -15,35 +15,46 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import { Hidden } from '@material-ui/core';
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
 
 const image = {height: 160,width: 100 }
 
 const useStyles = makeStyles(theme => ({
-    card: {
+    cardContent: {
       display: 'flex',
       height: image.height,
     },
+    
     content: {
       width: '50vw'
     },
   }));
 
-const BookCard = ({thumbnail,id,author,title,children}) => {
+const BookCard = ({thumbnail,id,author,title,header,actions}) => {
     const classes = useStyles();
     const theme = useTheme();
     return (
         <Grid item key={id} xs={12} sm={12} md={12}>
             <Card className={classes.card}>
-                  <img src={thumbnail}/>
+              {header}
+              <div className={classes.cardContent}>
+                <img src={thumbnail}/>
 
-                  <CardContent className={classes.content}>
-                    <Typography noWrap component="h5" variant="subtitle1">
-                        {title}
-                    </Typography>
-                    <Typography noWrap variant="subtitle1" color="textSecondary">
-                        by {author}
-                    </Typography>
-                  </CardContent>
+                <div>
+                <CardContent className={classes.content}>
+                  <Typography noWrap component="h5" variant="subtitle1">
+                      {title}
+                  </Typography>
+                  <Typography noWrap variant="subtitle1" color="textSecondary">
+                      by {author}
+                  </Typography>
+                </CardContent>
+                {actions}
+                </div>
+
+              </div>
+
 
             </Card>
         </Grid>

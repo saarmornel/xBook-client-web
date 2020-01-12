@@ -1,6 +1,7 @@
 import { observable, autorun, action, computed, decorate, reaction, runInAction } from 'mobx';
 import { getMyUser, getUsers, addBook, updateBook, deleteBook, getUser, populateBook } from "../services/user.service";
 import authStore from "./auth.store";
+import { toJS } from 'mobx';
 
 const getBooks = (user, available) => user && user.books && user.books.filter(
     book => book.available == available
@@ -25,16 +26,23 @@ class UserStore {
 
     get usersBooks() {
         const books = [];
-        console.log(this.users.length)
-        this.users.length && 
-        this.users.map(user => 
-            user.books&&
-            user.books.length && 
-            user.books.map(book => {
-                console.log(book)
-                book = book.data;
-                books.push({ ...book, userName: user.fullname, userThumbnail: user.picture, userId: user.id })
-            })
+        let users = this.users;
+        console.log('users',users)
+        users.length && 
+        users.map(user => 
+            {  
+                user = toJS(user)[0];
+                console.log('user',user);
+                user.books&&
+                user.books.length && 
+                user.books.map(({data,updatedAt}) => {
+                    books.push({ ...data,
+                        updatedAt,
+                        userName: user.fullName, 
+                        userThumbnail: user.picture, 
+                        userId: user.id })
+                })
+            }
         );
         console.log(books)
         return books;
@@ -57,7 +65,7 @@ class UserStore {
     pullUsers() {
         this.isLoadingUsers = true;
         getUsers(this.usersPage)
-            .then(action(users => { console.log(users); this.users.push(users) }))
+            .then(action(users => { this.users.push(users) }))
             .finally(action(() => { this.isLoadingUsers = false; }));
     }
 

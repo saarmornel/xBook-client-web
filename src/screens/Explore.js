@@ -1,12 +1,12 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
+import BookGrid from "../components/BookGrid";
+import BookCard from '../components/BookCard';
+import { UserBookGrid } from '../components/BookGrid'
 
 const Explore = (props) => {
     return (
-        
-        <div>
-            {props.userStore.usersBooks}
-        </div>
+        <UserBookGrid books={props.userStore.usersBooks}/>
     );
 };
 
