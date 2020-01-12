@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-import { Hidden } from '@material-ui/core';
+import { Hidden,Divider } from '@material-ui/core';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -38,23 +38,25 @@ const BookCard = ({thumbnail,id,author,title,header,actions}) => {
         <Grid item key={id} xs={12} sm={12} md={12}>
             <Card className={classes.card}>
               {header}
+              <Divider></Divider>
               <div className={classes.cardContent}>
                 <img src={thumbnail}/>
 
                 <div>
-                <CardContent className={classes.content}>
-                  <Typography noWrap component="h5" variant="subtitle1">
-                      {title}
-                  </Typography>
-                  <Typography noWrap variant="subtitle1" color="textSecondary">
-                      by {author}
-                  </Typography>
-                </CardContent>
-                {actions}
+                  <CardContent className={classes.content}>
+                    <Typography noWrap component="h5" variant="subtitle1">
+                        {title}
+                    </Typography>
+                    <Typography noWrap variant="subtitle1" color="textSecondary">
+                        by {author}
+                    </Typography>
+                  </CardContent>
+                  
                 </div>
 
               </div>
-
+              <Divider></Divider>
+              {actions}
 
             </Card>
         </Grid>
