@@ -9,7 +9,7 @@ const requestUrl = serverUrl + requestApi;
 
 export const populateRequest = async (request) => {
     const data = await getBook(request.book);
-    return {...request,book: data};
+    return {...request,book: data,id:request._id};
 }
 
 export const populateRequests = async (requests) => {
