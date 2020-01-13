@@ -8,7 +8,7 @@ const requestApi = '/api/request';
 const requestUrl = serverUrl + requestApi;
 
 export const populateRequest = async (request) => {
-    const data = await getBook(book);
+    const data = await getBook(request.book);
     return {...request,book: data};
 }
 

@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Routes from "./Routes";
 import userStore from './stores/user.store';
 import authStore from './stores/auth.store';
+import requestStore from './stores/request.store';
 import { Provider } from 'mobx-react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -13,7 +14,8 @@ configure({ enforceActions: 'always' });
 
 const stores = {
   userStore,
-  authStore
+  authStore,
+  requestStore
 };
 
 function App() {

@@ -1,5 +1,6 @@
-import { decorate, observable } from "mobx";
+import { decorate, observable, reaction,action } from "mobx";
 import { addRequest, getIncoming, getOutgoing } from '../services/request.service'
+import authStore from "./auth.store";
 
 class RequestStore {
     incoming = [];
@@ -8,20 +9,35 @@ class RequestStore {
 
     addRequest(book, receiving) {
             addRequest(book, receiving)
-            .then(action((this.outgoing.push))
+            .then(action((n)=>this.outgoing.push(n)))
     }
 
     pullIncoming() {
         getIncoming()
-        .then(action(this.incoming.push))
+        .then(action((n)=>this.incoming.push(n)))
     }
 
     pullOutgoing() {
         getOutgoing()
-        .then(action(this.outgoing.push))
+        .then(action((n)=>this.outgoing.push(n)))
     }
 }
 decorate(RequestStore, {
-    reuqesting: observable,
+    incoming: observable,
     outgoing: observable,
+    addRequest: action
 })
+
+const requestStore = new RequestStore();
+export default requestStore;
+
+reaction(() => authStore.token, () => {
+    requestStore.pullIncoming();
+    requestStore.pullOutgoing();
+},
+    {
+        onError(e) {
+            console.error('error load requests')
+        }
+    }
+);

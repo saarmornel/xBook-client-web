@@ -130,7 +130,8 @@ reaction(() => userStore.usersPage, () => {
         onError(e) {
             console.error('error load user data')
         }
-    });
+    }
+);
 
 reaction(() => authStore.token, () => {
     runInAction(() => {
@@ -142,4 +143,5 @@ reaction(() => authStore.token, () => {
         onError(e) {
             console.error('error load user data')
         }
-    });
+    }
+);
