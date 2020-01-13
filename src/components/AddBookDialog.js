@@ -63,12 +63,12 @@ const AddBookDialog = ({ handleClose, open }) => {
             <DialogActions>
                 <Button autoFocus onClick={()=>handleClose()} color="primary">
                     Cancel
-          </Button>
+                </Button>
                 <Button
                  disabled={!selectedId}
                  onClick={()=>handleClose(selectedId)} color="primary" autoFocus>
                     Add
-          </Button>
+                </Button>
             </DialogActions>
         </Dialog>
     );

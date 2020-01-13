@@ -27,11 +27,20 @@ const UserBookCard = (props) => {
     );
     const actions = (
     <CardActions>
-        <Button size="small" color="primary">
+        <Button
+        onClick={()=>handleRequest()}
+        size="small" 
+        color="primary">
           Request
         </Button>
     </CardActions>
     )
+
+    const handleRequest = () => {
+      
+    }
+
+
     return (
         <BookCard actions={actions} header={header} {...props}></BookCard>
     );
