@@ -24,6 +24,8 @@ const useStyles = makeStyles(theme => ({
     cardContent: {
       display: 'flex',
       height: image.height,
+      flexDirection: 'row-reverse',
+      justifyContent: 'space-between'
     },
     
     content: {
@@ -36,14 +38,14 @@ const BookCard = ({thumbnail,id,author,title,header,actions}) => {
     const theme = useTheme();
     return (
         <Grid item key={id} xs={12} sm={12} md={12}>
-            <Card className={classes.card}>
+            <Card>
               {header}
               <Divider></Divider>
               <div className={classes.cardContent}>
                 <img src={thumbnail}/>
 
-                <div>
-                  <CardContent className={classes.content}>
+                <div className={classes.content}>
+                  <CardContent>
                     <Typography noWrap component="h5" variant="subtitle1">
                         {title}
                     </Typography>
