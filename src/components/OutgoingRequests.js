@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BookGrid } from './BookGrid';
+import { inject,observer } from "mobx-react";
 
-class OutgoingRequests extends Component {
-    render() {
-        return (
-            <div>
-                
-            </div>
-        );
-    }
-}
+const OutgoingRequests = ({requestStore}) => {
+    return (
+        <BookGrid books={requestStore.outgoingBooks}></BookGrid>
+    );
+};
 
-export default OutgoingRequests;
+export default inject('requestStore')(observer(OutgoingRequests));

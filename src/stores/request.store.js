@@ -30,9 +30,35 @@ class RequestStore {
         requests.map(request => 
             {  
                 request = toJS(request)[0];
-                books.push({
+                request&&books.push({
                     ...request.book,
                     read: request.receiving,
+                    id: request.id,
+                    updatedAt: request.updatedAt,
+                    status: request.status,
+                    userName: request.requesting.fullName, 
+                    userThumbnail: request.requesting.picture, 
+                    userId: request.requesting.id 
+                })
+
+            }
+        );
+
+        return books;
+    }
+
+    get outgoingBooks() {
+        const books = [];
+        let requests = this.outgoing;
+        console.log(requests)
+        requests.length && 
+        requests.map(request => 
+            {  
+                request = toJS(request)[0];
+                console.log(request)
+                request&&books.push({
+                    ...request.book,
+                    read: request.requesting,
                     id: request.id,
                     updatedAt: request.updatedAt,
                     status: request.status,
@@ -43,7 +69,7 @@ class RequestStore {
 
             }
         );
-
+        console.log(books)
         return books;
     }
 }
@@ -51,7 +77,8 @@ decorate(RequestStore, {
     incoming: observable,
     outgoing: observable,
     addRequest: action,
-    incomingBooks: computed
+    incomingBooks: computed,
+    outgoingBooks: computed
 })
 
 const requestStore = new RequestStore();
