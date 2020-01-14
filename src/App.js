@@ -34,9 +34,5 @@ export default App;
 
 
 const loadToken = (stores) => {
-  try {
-      stores.authStore.loadToken();
-  } catch {
-      stores.authStore.logout();
-  }
+    stores.authStore.loadToken();
 }

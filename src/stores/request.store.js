@@ -6,7 +6,10 @@ import { toJS } from 'mobx';
 class RequestStore {
     incoming = [];
     outgoing = [];
-
+    authStore;
+    constructor(authStore) {
+        this.authStore = authStore;
+    }
 
     addRequest(book, receiving) {
             addRequest(book, receiving)
@@ -81,10 +84,10 @@ decorate(RequestStore, {
     outgoingBooks: computed
 })
 
-const requestStore = new RequestStore();
+const requestStore = new RequestStore(authStore);
 export default requestStore;
 
-reaction(() => authStore.token, () => {
+reaction(() => requestStore.authStore.token, () => {
     requestStore.pullIncoming();
     requestStore.pullOutgoing();
 },

@@ -1,4 +1,3 @@
-import { getBook } from "./bookDetails.service";
 import { getHeaders, handleErrors, json } from './helpers';
 import { serverUrl } from '../config';
 import authStore from '../stores/auth.store';
@@ -8,21 +7,6 @@ const headers = () => getHeaders(authStore.token);
 const userApi = '/api/user';
 const userUrl = serverUrl + userApi;
 const booksUrl = userUrl + '/books';
-
-export const populateBook = async (book) => {
-    const data = await getBook(book.id);
-    return {...book, data };
-}
-
-const populateUserBooks = async (user) => {
-    user.books = await Promise.all(user.books.map(populateBook) );
-    return user;
-}
-
-const populateUsersBooks = async (users) => {
-    const newUsers = await Promise.all(users.map( populateUserBooks ));
-    return newUsers;
-}
 
 export const updateBook = async (id, available) => {
     return fetch(booksUrl, {
@@ -53,7 +37,6 @@ export const getMyUser = () => {
         headers: headers()
     })
     .then(handleErrors).then(json)
-    .then(populateUserBooks);
 }
 
 export const getUsers = (page = 0) => {
@@ -61,7 +44,6 @@ export const getUsers = (page = 0) => {
         headers: headers()
     })
     .then(handleErrors).then(json)
-    .then(populateUsersBooks);
 }
 
 export const getUser = (id) => {
@@ -69,5 +51,4 @@ export const getUser = (id) => {
         headers: headers()
     })
     .then(handleErrors).then(json)
-    .then(populateUserBooks);
 }
