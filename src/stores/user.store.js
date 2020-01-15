@@ -74,18 +74,13 @@ class UserStore {
     }
 
     addBook(id, available) {
-        //check if book already on list
-        const book = this.currentUser.books.find(book => book.id === id);
-        if (book) return;
         addBook(id, available)
-        .then(action(b=>{this.currentUser.books.push(b)}))
+        .then(action( ()=>{this.pullCurrentUser()} ))
     }
 
     updateBook(id, available) {
-        const book = this.currentUser.books.find(book => book.id === id);
-        book.available = available;
         updateBook(id, available)
-        .catch(action(err => { this.pullCurrentUser(); throw err }));
+        .then(action(()=>{this.pullCurrentUser()}))
     }
 
 
