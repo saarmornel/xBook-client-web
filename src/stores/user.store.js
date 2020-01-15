@@ -45,11 +45,14 @@ class UserStore {
                 user.books&&
                 user.books.length && 
                 user.books.map(({data,updatedAt}) => {
+
+                    data&&
                     books.push({ ...data,
                         updatedAt,
                         userName: user.fullName, 
                         userThumbnail: user.picture, 
-                        userId: user.id })
+                        userId: user.id }
+                    )
                 })
             }
         );
