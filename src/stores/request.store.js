@@ -18,7 +18,7 @@ class RequestStore {
 
     pullIncoming() {
         getIncoming()
-        .then(action((incoming)=>{this.incoming.push(incoming)}))
+        .then(action((incoming)=>{this.incoming=incoming}))
     }
 
     pullOutgoing() {
@@ -28,11 +28,10 @@ class RequestStore {
 
     get incomingBooks() {
         const books = [];
-        let requests = this.incoming;
+        const requests = this.incoming.map(r=>toJS(r));
         requests.length && 
         requests.map(request => 
             {  
-                request = toJS(request)[0];
                 request&&books.push({
                     ...request.book,
                     read: request.receiving,
@@ -52,13 +51,10 @@ class RequestStore {
 
     get outgoingBooks() {
         const books = [];
-        let requests = this.outgoing;
-        console.log(requests)
+        const requests = this.outgoing.map(r=>toJS(r));
         requests.length && 
         requests.map(request => 
-            {  
-                request = toJS(request)[0];
-                console.log(request)
+            {
                 request&&books.push({
                     ...request.book,
                     read: request.requesting,
@@ -72,7 +68,6 @@ class RequestStore {
 
             }
         );
-        console.log(books)
         return books;
     }
 }
