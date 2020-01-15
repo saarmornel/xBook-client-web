@@ -2,7 +2,7 @@ import { observable, autorun, action, computed, decorate, reaction, runInAction 
 import { getMyUser, getUsers, addBook, updateBook, deleteBook, getUser } from "../services/user.service";
 import authStore from "./auth.store";
 
-const getBooks = (user, available) => user && user.books && user.books.filter(
+const getBooks = (books, available) => books.filter(
     book => book.available == available
 ).map(book => book.data);
 
@@ -20,15 +20,21 @@ class UserStore {
     }
 
     get myAvailableBooks() {
-        return getBooks(this.currentUser, true)
+        if(!this.currentUser || !this.currentUser.books) {
+            return [];
+        }
+        return getBooks(this.currentUser.books, true).filter(Boolean);
     }
 
     get myNonAvailableBooks() {
-        return getBooks(this.currentUser, false)
+        if(!this.currentUser || !this.currentUser.books) {
+            return [];
+        }
+        return getBooks(this.currentUser.books, false).filter(Boolean)
     }
 
     get usersBooks() {
-        const books = [];
+        let books = [];
         const users = this.users.slice();
         console.log('users',users)
         users.length && 
@@ -47,7 +53,6 @@ class UserStore {
                 })
             }
         );
-        console.log(books)
         return books;
     }
 

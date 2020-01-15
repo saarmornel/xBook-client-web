@@ -27,12 +27,14 @@ class RequestStore {
     }
 
     get incomingBooks() {
-        const books = [];
+        let books = [];
         const requests = this.incoming.slice();
         requests.length && 
         requests.map(request => 
             {  
-                request&&books.push({
+                request&&
+                request.book&&
+                books.push({
                     ...request.book,
                     read: request.receiving,
                     id: request.id,
@@ -50,12 +52,14 @@ class RequestStore {
     }
 
     get outgoingBooks() {
-        const books = [];
+        let books = [];
         const requests = this.outgoing.slice();
         requests.length && 
         requests.map(request => 
             {
-                request&&books.push({
+                request&&
+                request.book&&
+                books.push({
                     ...request.book,
                     read: request.requesting,
                     id: request.id,
@@ -68,6 +72,7 @@ class RequestStore {
 
             }
         );
+
         return books;
     }
 }
