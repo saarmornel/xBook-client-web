@@ -1,7 +1,6 @@
 import { observable, autorun, action, computed, decorate, reaction, runInAction } from 'mobx';
 import { getMyUser, getUsers, addBook, updateBook, deleteBook, getUser } from "../services/user.service";
 import authStore from "./auth.store";
-import { toJS } from 'mobx';
 
 const getBooks = (user, available) => user && user.books && user.books.filter(
     book => book.available == available
