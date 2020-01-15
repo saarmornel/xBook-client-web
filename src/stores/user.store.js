@@ -30,13 +30,13 @@ class UserStore {
 
     get usersBooks() {
         const books = [];
-        let users = this.users;
+        const users = this.users.slice();
         console.log('users',users)
         users.length && 
         users.map(user => 
             {  
-                user = toJS(user)[0];
                 console.log('user',user);
+                user&&
                 user.books&&
                 user.books.length && 
                 user.books.map(({data,updatedAt}) => {
@@ -69,7 +69,7 @@ class UserStore {
     pullUsers() {
         this.isLoadingUsers = true;
         getUsers(this.usersPage)
-            .then(action(users => { this.users.push(users) }))
+            .then(action(users => { this.users = this.users.concat(users) }))
             .finally(action(() => { this.isLoadingUsers = false; }));
     }
 

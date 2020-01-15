@@ -28,7 +28,7 @@ class RequestStore {
 
     get incomingBooks() {
         const books = [];
-        const requests = this.incoming.map(r=>toJS(r));
+        const requests = this.incoming.slice();
         requests.length && 
         requests.map(request => 
             {  
@@ -51,7 +51,7 @@ class RequestStore {
 
     get outgoingBooks() {
         const books = [];
-        const requests = this.outgoing.map(r=>toJS(r));
+        const requests = this.outgoing.slice();
         requests.length && 
         requests.map(request => 
             {
