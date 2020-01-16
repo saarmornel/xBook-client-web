@@ -37,7 +37,7 @@ export const deleteRequest = async (request) => {
     }).then(handleErrors).then(json);
 }
 
-export const updateReuestStatus = async (request,status) => {
+export const updateRequestStatus = async (request,status) => {
     return fetch(requestUrl + '/' + request, {
         method: 'PUT',
         headers: headers(),

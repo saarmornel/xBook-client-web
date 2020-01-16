@@ -2,7 +2,7 @@ import { decorate, observable, reaction,action, computed } from "mobx";
 import { addRequest, getIncoming, getOutgoing } from '../services/request.service'
 import authStore from "./auth.store";
 import { outgoing } from "../models/request";
-import { updateReuestStatus } from "../services/request.service";
+import { updateRequestStatus } from "../services/request.service";
 
 class RequestStore {
     incoming = [];
@@ -80,8 +80,8 @@ class RequestStore {
         return books;
     }
 
-    updateReuestStatus(request, status) {
-        updateReuestStatus(request, status)
+    updateRequestStatus(request, status) {
+        updateRequestStatus(request, status)
         .then(action(()=>console.log('status')))
     }
 }

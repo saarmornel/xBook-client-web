@@ -10,8 +10,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-  progess: {
-    marginTop: theme.spacing(5),
+  progress: {
+    marginTop: theme.spacing(1),
   }
 }))
 const RequestBookCard = (props) => {
@@ -27,7 +27,7 @@ const RequestBookCard = (props) => {
     status === REQUEST_STATUS.accepted && 100;
 
     const content = (
-    <CardContent>
+    <CardContent key="content">
       <Typography variant="body2" color="textSecondary" component="p">
         Status: {status}
       </Typography>
@@ -61,7 +61,7 @@ const RequestBookCard = (props) => {
     
 
     const actions = (status)=> (
-      <CardActions>
+      <CardActions key="actions">
         {status === REQUEST_STATUS.pending && pendingAction}
         {status === REQUEST_STATUS.approved && approvedAction}
         <Button
