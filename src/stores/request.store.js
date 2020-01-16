@@ -2,6 +2,7 @@ import { decorate, observable, reaction,action, computed } from "mobx";
 import { addRequest, getIncoming, getOutgoing } from '../services/request.service'
 import authStore from "./auth.store";
 import { outgoing } from "../models/request";
+import { updateReuestStatus } from "../services/request.service";
 
 class RequestStore {
     incoming = [];
@@ -43,7 +44,8 @@ class RequestStore {
                     status: request.status,
                     userName: request.requesting.fullName, 
                     userThumbnail: request.requesting.picture, 
-                    userId: request.requesting.id 
+                    userId: request.requesting.id,
+                    isIncoming: true,
                 })
 
             }
@@ -68,7 +70,8 @@ class RequestStore {
                     status: request.status,
                     userName: request.receiving.fullName, 
                     userThumbnail: request.receiving.picture, 
-                    userId: request.receiving.id 
+                    userId: request.receiving.id,
+                    isIncoming: false
                 })
 
             }
@@ -76,13 +79,19 @@ class RequestStore {
 
         return books;
     }
+
+    updateReuestStatus(request, status) {
+        updateReuestStatus(request, status)
+        .then(action(()=>console.log('status')))
+    }
 }
 decorate(RequestStore, {
     incoming: observable,
     outgoing: observable,
     addRequest: action,
     incomingBooks: computed,
-    outgoingBooks: computed
+    outgoingBooks: computed,
+    updateReuestStatus: action
 })
 
 const requestStore = new RequestStore(authStore);
