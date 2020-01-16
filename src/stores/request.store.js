@@ -80,7 +80,7 @@ class RequestStore {
 
     updateRequestStatus(request, status) {
         updateRequestStatus(request, status)
-        .then(action(()=>console.log('status')))
+        .then(action(()=>{this.pullIncoming();this.pullOutgoing()}))
     }
 }
 decorate(RequestStore, {
