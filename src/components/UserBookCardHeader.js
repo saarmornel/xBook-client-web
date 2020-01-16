@@ -10,7 +10,7 @@ const UserBookCardHeader = (props) => {
         <CardHeader
         avatar={
           <Avatar src={userThumbnail}>
-            {userName.slice(0,1)}
+            {userName&&userName.slice(0,1)}
           </Avatar>
         }
         // action={

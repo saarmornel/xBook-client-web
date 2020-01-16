@@ -1,7 +1,6 @@
 import { decorate, observable, reaction,action, computed } from "mobx";
 import { addRequest, getIncoming, getOutgoing } from '../services/request.service'
 import authStore from "./auth.store";
-import { outgoing } from "../models/request";
 import { updateRequestStatus } from "../services/request.service";
 
 class RequestStore {
@@ -23,7 +22,6 @@ class RequestStore {
     }
 
     pullOutgoing() {
-        return (this.outgoing=outgoing);
         getOutgoing()
         .then(action((outgoing)=>{this.outgoing=outgoing}))
     }
