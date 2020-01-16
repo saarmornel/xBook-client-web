@@ -32,10 +32,12 @@ function TabPanel(props) {
   };
 
 const useStyles = makeStyles(theme => ({
-root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-},
+  root: {
+      flexGrow: 1,
+  },
+  content: {
+    marginTop: 25
+  }
 }));
 
 const Requests = () => {
@@ -47,18 +49,20 @@ const Requests = () => {
     };
     return (
         <div className={classes.root}>
-            <AppBar >
+            <AppBar>
                 <Tabs value={value} onChange={handleChange} centered>
                     <Tab label="Incoming" id="incoming" />
                     <Tab label="Outgoing" id="outgoing" />
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0}>
-                <IncomingRequests/>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <OutgoingRequests/>
-            </TabPanel>
+            <div className={classes.content}>
+              <TabPanel value={value} index={0}>
+                  <IncomingRequests/>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                  <OutgoingRequests/>
+              </TabPanel>
+            </div>
       </div>
       );
 };
