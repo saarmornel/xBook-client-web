@@ -43,15 +43,13 @@ const RequestBookCard = (props) => {
     )
 
     const pendingAction = 
-    isIncoming&&(
         <Button
         onClick={()=>onStatusChange(REQUEST_STATUS.approved)}
         size="small" 
         color="primary">
           Accept
         </Button>
-   
-    );
+        
     //actions to make contact with each other
     const contactAction = (
       <React.Fragment>
@@ -68,14 +66,13 @@ const RequestBookCard = (props) => {
 
 
     const approvedAction =
-    [!isIncoming&&(
       <Button
       onClick={()=>onStatusChange(REQUEST_STATUS.accepted)}
       size="small" 
       color="primary">
         I Recieved the Book
       </Button>
-    ),contactAction];
+
 
     const cancelAction = 
     <Button
@@ -89,8 +86,9 @@ const RequestBookCard = (props) => {
 
     const actions = (status)=> (
       <CardActions key="actions">
-        {status === REQUEST_STATUS.pending && pendingAction}
-        {status === REQUEST_STATUS.approved && approvedAction}
+        {status === REQUEST_STATUS.pending && isIncoming && pendingAction}
+        {status === REQUEST_STATUS.approved && !isIncoming && approvedAction}
+        {status === REQUEST_STATUS.approved && contactAction}
         {!(status === REQUEST_STATUS.declined) && cancelAction}
       </CardActions>
     );
