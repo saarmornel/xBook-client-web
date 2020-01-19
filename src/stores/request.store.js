@@ -43,6 +43,8 @@ class RequestStore {
                     userName: request.requesting.fullName, 
                     userThumbnail: request.requesting.picture, 
                     userId: request.requesting.id,
+                    userPhone: request.requesting.phone,
+                    userMail: request.requesting.mail,
                     isIncoming: true,
                 })
 
@@ -69,6 +71,8 @@ class RequestStore {
                     userName: request.receiving.fullName, 
                     userThumbnail: request.receiving.picture, 
                     userId: request.receiving.id,
+                    userPhone: request.requesting.phone,
+                    userMail: request.requesting.mail,
                     isIncoming: false
                 })
 

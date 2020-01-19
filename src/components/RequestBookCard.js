@@ -8,6 +8,8 @@ import { CardContent, Typography } from "@material-ui/core";
 import { REQUEST_STATUS } from '../services/Request.Status';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from "@material-ui/core/styles";
+import { Mail, Phone } from "@material-ui/icons";
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
   progress: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 const RequestBookCard = (props) => {
-    const {userId,id,requestStore,status,isIncoming}=props;
+    const {userId,id,requestStore,status,isIncoming,userMail,userPhone}=props;
     const classes = useStyles();
 
     const header = <UserBookCardHeader {...props}/>
@@ -28,6 +30,9 @@ const RequestBookCard = (props) => {
 
     const content = (
     <CardContent key="content">
+      <Typography variant="body" color="textSecondary" component="p">
+        {status === REQUEST_STATUS.approved && 'You should deliver the book to the requester.'}
+      </Typography>
       <Typography variant="body2" color="textSecondary" component="p">
         Status: {status}
       </Typography>
@@ -48,7 +53,20 @@ const RequestBookCard = (props) => {
    
     );
     //actions to make contact with each other
-    const contactAction = undefined;
+    const contactAction = (
+      <React.Fragment>
+        {userPhone && <IconButton color="primary" size="small" href={`tel:${userPhone}`}>
+          <Phone />
+        </IconButton>
+        }
+        {userMail && <IconButton color="primary" size="small" href={`mailto:${userMail}`}>
+          <Mail />
+        </IconButton>
+        }
+      </React.Fragment>
+    );
+
+
     const approvedAction =
     [!isIncoming&&(
       <Button
