@@ -5,6 +5,7 @@ import { Container, Grid } from "@material-ui/core";
 import BookCard from './BookCard';
 import UserBookCard from './UserBookCard';
 import RequestBookCard from './RequestBookCard';
+import PrivateBookCard from './PrivateBookCard';
 
 const gridWrap = (Card) => 
     (props) => {
@@ -24,7 +25,7 @@ const gridWrap = (Card) =>
 // export default BookGrid;
 
 const UserBookGrid = gridWrap(UserBookCard);
-const BookGrid = gridWrap(BookCard);
+const BookGrid = gridWrap(PrivateBookCard);
 const RequestBookGrid = gridWrap(RequestBookCard);
 export {UserBookGrid,BookGrid,RequestBookGrid};
 

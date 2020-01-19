@@ -53,6 +53,7 @@ const BookCard = ({thumbnail,id,author,title,header,actions}) => {
                         by {author}
                     </Typography>
                   </CardContent>
+            
                   
                 </div>
 

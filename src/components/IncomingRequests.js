@@ -1,10 +1,10 @@
 import React from 'react';
-import { BookGrid } from './BookGrid';
+import { BookGrid, RequestBookGrid } from './BookGrid';
 import { inject,observer } from "mobx-react";
 
 const IncomingRequests = ({requestStore}) => {
     return (
-        <BookGrid books={requestStore.incomingBooks}></BookGrid>
+        <RequestBookGrid books={requestStore.incomingBooks}/>
     );
 };
 

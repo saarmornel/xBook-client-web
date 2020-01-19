@@ -8,7 +8,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Button, TextField,makeStyles,Container } from "@material-ui/core";
 import { useTheme } from '@material-ui/core/styles';
 import BookList from './BookList';
-import { searchBook } from '../services/bookDetails.service';
+import { searchBook } from '../services/book.service';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({

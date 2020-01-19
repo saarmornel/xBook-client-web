@@ -1,12 +1,15 @@
 import { decorate, observable, reaction,action, computed } from "mobx";
 import { addRequest, getIncoming, getOutgoing } from '../services/request.service'
 import authStore from "./auth.store";
-import { toJS } from 'mobx';
+import { updateRequestStatus } from "../services/request.service";
 
 class RequestStore {
     incoming = [];
     outgoing = [];
-
+    authStore;
+    constructor(authStore) {
+        this.authStore = authStore;
+    }
 
     addRequest(book, receiving) {
             addRequest(book, receiving)
@@ -15,7 +18,7 @@ class RequestStore {
 
     pullIncoming() {
         getIncoming()
-        .then(action((incoming)=>{this.incoming.push(incoming)}))
+        .then(action((incoming)=>{this.incoming=incoming}))
     }
 
     pullOutgoing() {
@@ -24,13 +27,14 @@ class RequestStore {
     }
 
     get incomingBooks() {
-        const books = [];
-        let requests = this.incoming;
+        let books = [];
+        const requests = this.incoming.slice();
         requests.length && 
         requests.map(request => 
             {  
-                request = toJS(request)[0];
-                request&&books.push({
+                request&&
+                request.book&&
+                books.push({
                     ...request.book,
                     read: request.receiving,
                     id: request.id,
@@ -38,7 +42,10 @@ class RequestStore {
                     status: request.status,
                     userName: request.requesting.fullName, 
                     userThumbnail: request.requesting.picture, 
-                    userId: request.requesting.id 
+                    userId: request.requesting.id,
+                    userPhone: request.requesting.phone,
+                    userMail: request.requesting.mail,
+                    isIncoming: true,
                 })
 
             }
@@ -48,15 +55,14 @@ class RequestStore {
     }
 
     get outgoingBooks() {
-        const books = [];
-        let requests = this.outgoing;
-        console.log(requests)
+        let books = [];
+        const requests = this.outgoing.slice();
         requests.length && 
         requests.map(request => 
-            {  
-                request = toJS(request)[0];
-                console.log(request)
-                request&&books.push({
+            {
+                request&&
+                request.book&&
+                books.push({
                     ...request.book,
                     read: request.requesting,
                     id: request.id,
@@ -64,13 +70,21 @@ class RequestStore {
                     status: request.status,
                     userName: request.receiving.fullName, 
                     userThumbnail: request.receiving.picture, 
-                    userId: request.receiving.id 
+                    userId: request.receiving.id,
+                    userPhone: request.requesting.phone,
+                    userMail: request.requesting.mail,
+                    isIncoming: false
                 })
 
             }
         );
-        console.log(books)
+
         return books;
+    }
+
+    updateRequestStatus(request, status) {
+        updateRequestStatus(request, status)
+        .then(action(()=>{this.pullIncoming();this.pullOutgoing()}))
     }
 }
 decorate(RequestStore, {
@@ -78,13 +92,14 @@ decorate(RequestStore, {
     outgoing: observable,
     addRequest: action,
     incomingBooks: computed,
-    outgoingBooks: computed
+    outgoingBooks: computed,
+    updateReuestStatus: action
 })
 
-const requestStore = new RequestStore();
+const requestStore = new RequestStore(authStore);
 export default requestStore;
 
-reaction(() => authStore.token, () => {
+reaction(() => requestStore.authStore.token, () => {
     requestStore.pullIncoming();
     requestStore.pullOutgoing();
 },
