@@ -81,11 +81,15 @@ class UserStore {
     }
 
     addBook(id, available) {
+        const index = this.currentUser.books.findIndex(book => book.id === id);
+        if(index>-1) return;
         addBook(id, available)
         .then(action( ()=>{this.pullCurrentUser()} ))
     }
 
     updateBook(id, available) {
+        const index = this.currentUser.books.findIndex(book => book.id === id);
+        if(index>-1) return;
         updateBook(id, available)
         .then(action(()=>{this.pullCurrentUser()}))
     }
