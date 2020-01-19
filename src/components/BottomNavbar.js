@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import { Add, Search, Explore,Book,LibraryBooks, SwapCalls, Height } from '@material-ui/icons';
+import { Add, Search, Explore,Book,LibraryBooks, SwapCalls,Settings } from '@material-ui/icons';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useLocation } from "react-router-dom";
@@ -30,6 +30,7 @@ const BottomNavbar = () => {
           <BottomNavigationAction component={Link} to="/explore" value="explore" label="Explore" icon={<Search />}></BottomNavigationAction>
           <BottomNavigationAction component={Link} to="/giveaway" label="Giveaway" value="giveaway" icon={<LibraryBooks />}></BottomNavigationAction>  
           <BottomNavigationAction component={Link} to="/requests" label="Requests" value="requests" icon={<SwapCalls />}></BottomNavigationAction>
+          <BottomNavigationAction component={Link} to="/settings" label="Settings" value="settings" icon={<Settings />}></BottomNavigationAction>
         </BottomNavigation>
     );
 };

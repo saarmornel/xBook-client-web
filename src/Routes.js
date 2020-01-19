@@ -6,6 +6,7 @@ import Requests from './screens/Requests';
 import SignIn from './screens/SignIn';
 import { inject, observer } from 'mobx-react';
 import MainLayout from './components/MainLayout';
+import Settings from "./screens/Settings";
 
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -22,8 +23,11 @@ const Routes = (props) => {
       <PrivateRoute path="/requests">
         <MainLayout><Requests /></MainLayout>
       </PrivateRoute>
+      <PrivateRoute path="/settings">
+        <MainLayout><Settings /></MainLayout>
+      </PrivateRoute>
       <Route path="/sign_in">
-        <SignIn></SignIn>
+        <SignIn/>
       </Route>
       <PrivateRoute exact path="/">
         <Redirect

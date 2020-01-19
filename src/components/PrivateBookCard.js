@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
 const PrivateBookCard = (props) => {
-    const actions =       
+    const actions =
     <CardActions key="actions">
         <Button
         onClick={()=>props.userStore.deleteBook(props.id)}
