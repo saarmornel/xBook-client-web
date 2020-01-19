@@ -47,6 +47,7 @@ const RequestBookCard = (props) => {
         </Button>
    
     );
+    //actions to make contact with each other
     const contactAction = undefined;
     const approvedAction =
     [!isIncoming&&(
@@ -58,18 +59,21 @@ const RequestBookCard = (props) => {
       </Button>
     ),contactAction];
 
+    const cancelAction = 
+    <Button
+    onClick={()=>onStatusChange(REQUEST_STATUS.declined)}
+    size="small" 
+    color="primary">
+      {isIncoming ? 'Reject' : 'Cancel'}
+    </Button>
+
     
 
     const actions = (status)=> (
       <CardActions key="actions">
         {status === REQUEST_STATUS.pending && pendingAction}
         {status === REQUEST_STATUS.approved && approvedAction}
-        <Button
-        onClick={()=>onStatusChange(REQUEST_STATUS.declined)}
-        size="small" 
-        color="primary">
-          {isIncoming ? 'Reject' : 'Cancel'}
-        </Button>
+        {!(status === REQUEST_STATUS.declined) && cancelAction}
       </CardActions>
     );
 
