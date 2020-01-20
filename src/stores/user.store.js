@@ -2,9 +2,9 @@ import { observable, autorun, action, computed, decorate, reaction, runInAction 
 import { getMyUser, getUsers, addBook, updateBook, deleteBook, getUser } from "../services/user.service";
 import authStore from "./auth.store";
 
-const getBooks = (books, available) => books.filter(
-    book => book.available == available
-).map(book => book.data);
+const getBooks = (books, available = null) => books.filter(
+    book => available ? book.available == available : true
+).map((book) => {return {...book.data, available:book.available} });
 
 class UserStore {
     users = [];     // users.books will be with only available books. todo: should be sorted by closeness/relationship
@@ -19,18 +19,11 @@ class UserStore {
         this.authStore = authStore;
     }
 
-    get myAvailableBooks() {
+    get myBooks() {
         if(!this.currentUser || !this.currentUser.books) {
             return [];
         }
-        return getBooks(this.currentUser.books, true).filter(Boolean);
-    }
-
-    get myNonAvailableBooks() {
-        if(!this.currentUser || !this.currentUser.books) {
-            return [];
-        }
-        return getBooks(this.currentUser.books, false).filter(Boolean)
+        return getBooks(this.currentUser.books).filter(Boolean)
     }
 
     get usersBooks() {
@@ -89,17 +82,22 @@ class UserStore {
 
     updateBook(id, available) {
         const index = this.currentUser.books.findIndex(book => book.id === id);
-        if(index>-1) return;
-        updateBook(id, available)
-        .then(action(()=>{this.pullCurrentUser()}))
+        if(index>-1) {
+            this.currentUser.books[index].available = available;
+            updateBook(id, available)
+            .catch(action(err => { this.pullCurrentUser(); throw err }));      
+        };
+
     }
 
 
     deleteBook(id) {
         const index = this.currentUser.books.findIndex(book => book.id === id);
-        if (index > -1) this.currentUser.books.splice(index, 1);
-        deleteBook(id)
-        .catch(action(err => { this.pullCurrentUser(); throw err }));
+        if (index > -1) {
+            this.currentUser.books.splice(index, 1);
+            deleteBook(id)
+            .catch(action(err => { this.pullCurrentUser(); throw err }));
+        }
     }
 
     forgetCurrentUser() {
@@ -114,8 +112,7 @@ decorate(UserStore, {
     isLoadingUsers: observable,
     currentUser: observable,
     selectedUser: observable,
-    myAvailableBooks: computed,
-    myNonAvailableBooks: computed,
+    myBooks: computed,
     usersBooks: computed,
     pullCurrentUser: action,
     pullSelectedUser: action,

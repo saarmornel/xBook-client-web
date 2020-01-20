@@ -9,7 +9,7 @@ const userUrl = serverUrl + userApi;
 const booksUrl = userUrl + '/books';
 
 export const updateBook = async (id, available) => {
-    return fetch(booksUrl, {
+    return fetch(booksUrl + '/' + id, {
         method: 'PUT',
         headers: headers(),
         body: JSON.stringify({id, available})
@@ -24,8 +24,8 @@ export const addBook = async (id, available) => {
     }).then(handleErrors).then(json);
 }
 
-export const deleteBook = async (bookId) => {
-    return fetch(booksUrl + '/' + bookId, {
+export const deleteBook = async (id) => {
+    return fetch(booksUrl + '/' + id, {
         method: 'DELETE',
         headers: headers(),
         body: JSON.stringify({})

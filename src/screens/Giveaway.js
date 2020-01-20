@@ -27,7 +27,7 @@ const Giveaway = (props) => {
       };
 
     const classes = useStyles();
-    const books = props.userStore.myAvailableBooks || [];
+    const books = props.userStore.myBooks || [];
     console.log(books)
     return (
         <React.Fragment>
