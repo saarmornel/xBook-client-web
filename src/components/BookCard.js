@@ -37,7 +37,6 @@ const BookCard = ({thumbnail,id,author,title,header,actions}) => {
     const classes = useStyles();
     const theme = useTheme();
     return (
-        <Grid item key={id} xs={12} sm={12} md={12}>
             <Card>
               {header}
               <Divider></Divider>
@@ -62,7 +61,6 @@ const BookCard = ({thumbnail,id,author,title,header,actions}) => {
               {actions}
 
             </Card>
-        </Grid>
     );
 };
 

@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(2),
       overflowY: 'auto',
+      height: '100%',
     },
     footer: {
       marginTop: 'auto',
