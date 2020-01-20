@@ -9,7 +9,7 @@ import AddBookDialog from '../components/AddBookDialog';
 const useStyles = makeStyles(theme => ({
     fab: {
         position: 'absolute',
-        bottom: theme.spacing(11),
+        bottom: theme.spacing(10),
         right: theme.spacing(4),
     }
 }))
