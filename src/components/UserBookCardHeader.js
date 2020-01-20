@@ -6,13 +6,6 @@ import BookIcon from '@material-ui/icons/Book';
 import { makeStyles } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 
-const ratingCalc = (balance) => {
-  const rating = (balance+50)*5/100;
-  if(rating>5) return 5;
-  if(rating <1) return 1;
-  return rating
-}
-
 const useStyles = makeStyles({
   rating: {
     width: '100%',
@@ -26,7 +19,7 @@ const UserBookCardHeader = (props) => {
     const {userThumbnail,userName,updatedAt,userId,userBalance,userGiven,userReceived}=props;
     const date = (new Date(updatedAt)).toLocaleDateString("en-US",{year: 'numeric', month: 'long', day: 'numeric' });
     const rating =  <Rating precision={0.5} size="small" name="book-balance" 
-    value={ratingCalc(userBalance)} disabled 
+    value={userBalance} disabled 
     icon={<BookIcon fontSize="inherit"/>}/>
     const header = (
         <CardHeader

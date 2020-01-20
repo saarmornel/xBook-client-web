@@ -13,7 +13,7 @@ class RequestStore {
 
     addRequest(book, receiving) {
             addRequest(book, receiving)
-            .then(action((n)=>{this.outgoing.push(n)}))
+            .then(action(()=>{this.pullOutgoing()}))
     }
 
     pullIncoming() {
@@ -82,9 +82,9 @@ class RequestStore {
         return books;
     }
 
-    updateRequestStatus(request, status) {
+    updateRequestStatus(request, status,isIncoming) {
         updateRequestStatus(request, status)
-        .then(action(()=>{this.pullIncoming();this.pullOutgoing()}))
+        .then(action(()=>{isIncoming ? this.pullIncoming() : this.pullOutgoing()}))
     }
 }
 decorate(RequestStore, {

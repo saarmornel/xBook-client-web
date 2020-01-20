@@ -30,7 +30,7 @@ const RequestBookCard = (props) => {
 
     const content = (
     <CardContent key="content">
-      <Typography variant="body" color="textSecondary" component="p">
+      <Typography variant="body1" color="textSecondary" component="p">
         {status === REQUEST_STATUS.approved && 'You should deliver the book to the requester.'}
       </Typography>
       <Typography variant="body2" color="textSecondary" component="p">
@@ -94,7 +94,7 @@ const RequestBookCard = (props) => {
     );
 
     const onStatusChange = (status) => {
-      requestStore.updateRequestStatus(id,status);
+      requestStore.updateRequestStatus(id,status,isIncoming);
     }
 
 
