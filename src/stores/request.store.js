@@ -1,19 +1,26 @@
 import { decorate, observable, reaction,action, computed } from "mobx";
 import { addRequest, getIncoming, getOutgoing } from '../services/request.service'
 import authStore from "./auth.store";
+import userStore from "./user.store";
 import { updateRequestStatus } from "../services/request.service";
 
 class RequestStore {
     incoming = [];
     outgoing = [];
     authStore;
-    constructor(authStore) {
+    constructor(authStore,userStore) {
         this.authStore = authStore;
+        this.userStore = userStore;
     }
 
     addRequest(book, receiving) {
             addRequest(book, receiving)
-            .then(action(()=>{this.pullOutgoing()}))
+            .then(action(()=>{
+                let index = this.userStore.users.findIndex(user=>user.id===receiving);
+                index = this.userStore.users[index].books.findIndex(b=>b.id===book);
+                this.userStore.users[index].books.splice(index,1);
+                this.pullOutgoing();
+            }))
     }
 
     pullIncoming() {
@@ -96,7 +103,7 @@ decorate(RequestStore, {
     updateReuestStatus: action
 })
 
-const requestStore = new RequestStore(authStore);
+const requestStore = new RequestStore(authStore,userStore);
 export default requestStore;
 
 reaction(() => requestStore.authStore.token, () => {

@@ -36,7 +36,7 @@ const RequestBookCard = (props) => {
     <CardContent key="content">
       <Typography variant="body1" color="textSecondary" component="p">
         {status === REQUEST_STATUS.approved && isIncoming && 'You should deliver the book to the requester.'}
-        {status === REQUEST_STATUS.approved && !isIncoming && 'You should contact to recieve the book.'}
+        {status === REQUEST_STATUS.approved && !isIncoming && 'You should contact to receive the book.'}
       </Typography>
       {status === REQUEST_STATUS.approved && <Divider variant="middle" className={classes.divider} />}
       <Typography variant="body2" color="textSecondary" component="p">
@@ -76,7 +76,7 @@ const RequestBookCard = (props) => {
       onClick={()=>onStatusChange(REQUEST_STATUS.accepted)}
       size="small" 
       color="primary">
-        I Recieved the Book
+        I received the Book
       </Button>
 
 
