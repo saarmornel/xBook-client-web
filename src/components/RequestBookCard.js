@@ -10,10 +10,14 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from "@material-ui/core/styles";
 import { Mail, Phone } from "@material-ui/icons";
 import IconButton from '@material-ui/core/IconButton';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles(theme => ({
   progress: {
     marginTop: theme.spacing(1),
+  },
+  divider: {
+    margin: theme.spacing(1,0,1,0)
   }
 }))
 const RequestBookCard = (props) => {
@@ -31,8 +35,10 @@ const RequestBookCard = (props) => {
     const content = (
     <CardContent key="content">
       <Typography variant="body1" color="textSecondary" component="p">
-        {status === REQUEST_STATUS.approved && 'You should deliver the book to the requester.'}
+        {status === REQUEST_STATUS.approved && isIncoming && 'You should deliver the book to the requester.'}
+        {status === REQUEST_STATUS.approved && !isIncoming && 'You should contact to recieve the book.'}
       </Typography>
+      {status === REQUEST_STATUS.approved && <Divider variant="middle" className={classes.divider} />}
       <Typography variant="body2" color="textSecondary" component="p">
         Status: {status}
       </Typography>

@@ -44,6 +44,7 @@ class UserStore {
                         updatedAt,
                         userName: user.fullName, 
                         userThumbnail: user.picture, 
+                        userStars: user.stars,
                         userId: user.id }
                     )
                 })

@@ -16,10 +16,10 @@ const useStyles = makeStyles({
 
 const UserBookCardHeader = (props) => {
     const classes = useStyles();
-    const {userThumbnail,userName,updatedAt,userId,userBalance,userGiven,userReceived}=props;
+    const {userThumbnail,userName,updatedAt,userId,userStars,userGiven,userReceived}=props;
     const date = (new Date(updatedAt)).toLocaleDateString("en-US",{year: 'numeric', month: 'long', day: 'numeric' });
-    const rating =  <Rating precision={0.5} size="small" name="book-balance" 
-    value={userBalance} disabled 
+    const rating =  <Rating precision={0.5} size="small" name="book-stars" 
+    value={userStars} disabled 
     icon={<BookIcon fontSize="inherit"/>}/>
     const header = (
         <CardHeader
