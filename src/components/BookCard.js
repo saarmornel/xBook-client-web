@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     },
     
     content: {
-      width: '50vw'
+      width: '45vw'
     },
   }));
 
