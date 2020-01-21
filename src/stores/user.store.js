@@ -17,6 +17,31 @@ class UserStore {
     authStore;
     constructor(authStore) {
         this.authStore = authStore;
+        reaction(() => this.usersPage, () => {
+            this.pullUsers();
+        },
+            {
+                onError(e) {
+                    console.error('error load users on page',this.usersPage)
+                }
+            }
+        );
+        
+        reaction(() => this.authStore.token, () => {
+            if(!this.authStore.token) return this.forgetCurrentUser();
+            runInAction(() => {
+                this.usersPage = 0;
+            });
+            this.pullCurrentUser();
+        },
+            {
+                onError: (e) => {
+                    //toodo:remove token
+                    this.authStore.logout();
+                    console.error('error load current user:',e)
+                }
+            }
+        );
     }
 
     get myBooks() {
@@ -127,30 +152,3 @@ decorate(UserStore, {
 
 const userStore = new UserStore(authStore);
 export default userStore;
-
-reaction(() => userStore.usersPage, () => {
-    userStore.pullUsers();
-},
-    {
-        onError(e) {
-            console.error('error load users on page',userStore.usersPage)
-        }
-    }
-);
-
-reaction(() => userStore.authStore.token, () => {
-    if(!userStore.authStore.token) return userStore.forgetCurrentUser();
-    runInAction(() => {
-        userStore.usersPage = 0;
-    });
-    userStore.pullCurrentUser();
-},
-    {
-        onError: (e) => {
-            //toodo:remove token
-            console.log(userStore.authStore)
-            userStore.authStore.logout();
-            console.error('error load current user:',e)
-        }
-    }
-);

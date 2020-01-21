@@ -3,6 +3,7 @@ import { addRequest, getIncoming, getOutgoing } from '../services/request.servic
 import authStore from "./auth.store";
 import userStore from "./user.store";
 import { updateRequestStatus } from "../services/request.service";
+import { REQUEST_STATUS } from "../services/Request.Status";
 
 class RequestStore {
     incoming = [];
@@ -11,6 +12,16 @@ class RequestStore {
     constructor(authStore,userStore) {
         this.authStore = authStore;
         this.userStore = userStore;
+        reaction(() => this.authStore.token, () => {
+            this.pullIncoming();
+            this.pullOutgoing();
+        },
+            {
+                onError(e) {
+                    console.error('error load requests')
+                }
+            }
+        );
     }
 
     addRequest(book, receiving) {
@@ -91,7 +102,10 @@ class RequestStore {
 
     updateRequestStatus(request, status,isIncoming) {
         updateRequestStatus(request, status)
-        .then(action(()=>{isIncoming ? this.pullIncoming() : this.pullOutgoing()}))
+        .then(action(()=>{
+            isIncoming ? this.pullIncoming() : this.pullOutgoing();
+            status === REQUEST_STATUS.accepted && this.userStore.pullCurrentUser();
+        }))
     }
 }
 decorate(RequestStore, {
@@ -106,13 +120,3 @@ decorate(RequestStore, {
 const requestStore = new RequestStore(authStore,userStore);
 export default requestStore;
 
-reaction(() => requestStore.authStore.token, () => {
-    requestStore.pullIncoming();
-    requestStore.pullOutgoing();
-},
-    {
-        onError(e) {
-            console.error('error load requests')
-        }
-    }
-);
