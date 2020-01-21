@@ -27,7 +27,7 @@ const RequestBookCard = (props) => {
     const header = <UserBookCardHeader {...props}/>
 
     const progess =
-    status === REQUEST_STATUS.declined && 0 ||
+    status === REQUEST_STATUS.declined && 1 ||
     status === REQUEST_STATUS.pending && 25 ||
     status === REQUEST_STATUS.approved && 50 ||
     status === REQUEST_STATUS.accepted && 100;
