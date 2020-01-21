@@ -95,7 +95,7 @@ const RequestBookCard = (props) => {
         {status === REQUEST_STATUS.pending && isIncoming && pendingAction}
         {status === REQUEST_STATUS.approved && !isIncoming && approvedAction}
         {status === REQUEST_STATUS.approved && contactAction}
-        {!(status === REQUEST_STATUS.declined) && cancelAction}
+        {!(status === REQUEST_STATUS.declined || status === REQUEST_STATUS.accepted) && cancelAction}
       </CardActions>
     );
 
