@@ -15,7 +15,6 @@ class AuthStore {
     }
 
     logout() {
-        //todo: forgetCurrentUser should be in user Store reaction
         this.isLoading = true;
         AsyncStorage.removeItem(authCookie)
         .then( action(() => {this.token = undefined}) )

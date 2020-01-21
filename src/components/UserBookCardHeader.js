@@ -16,16 +16,16 @@ const useStyles = makeStyles({
 
 const UserBookCardHeader = (props) => {
     const classes = useStyles();
-    const {userThumbnail,userName,updatedAt,userId,userStars,userGiven,userReceived}=props;
+    const {user,updatedAt}=props;
     const date = (new Date(updatedAt)).toLocaleDateString("en-US",{year: 'numeric', month: 'long', day: 'numeric' });
     const rating =  <Rating precision={0.5} size="small" name="book-stars" 
-    value={userStars} disabled 
+    value={user.stars} disabled 
     icon={<BookIcon fontSize="inherit"/>}/>
     const header = (
         <CardHeader
         avatar={
-          <Avatar src={userThumbnail}>
-            {userName&&userName.slice(0,1)}
+          <Avatar src={user.thumbnail}>
+            {user.fullName&&user.fullName.slice(0,1)}
           </Avatar>
         }
         // action={
@@ -33,7 +33,7 @@ const UserBookCardHeader = (props) => {
         //     <MoreVertIcon />
         //   </IconButton>
         // }
-        title={userName}
+        title={user.fullName}
         subheader={
         <span className={classes.rating}>
           {date}

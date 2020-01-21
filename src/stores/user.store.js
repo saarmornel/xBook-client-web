@@ -1,81 +1,18 @@
 import { observable, autorun, action, computed, decorate, reaction, runInAction } from 'mobx';
-import { getMyUser, getUsers, addBook, updateBook, deleteBook, getUser } from "../services/user.service";
-import authStore from "./auth.store";
-
-const getBooks = (books, available = null) => books.filter(
-    book => available ? book.available == available : true
-).map((book) => {return {...book.data, available:book.available} });
+import { getMyUser, getUsers, getUser } from "../services/user.service";
 
 class UserStore {
-    users = [];     // users.books will be with only available books. todo: should be sorted by closeness/relationship
+    users = [];     
     isLoadingUsers;
-    currentUser;    // users.books will be with all books: {book,available}
+    currentUser;    
     isLoadingCurrentUser;
     selectedUser;
     isLoadingSelectedUser;
-    usersPage;
-    authStore;
-    constructor(authStore) {
-        this.authStore = authStore;
-        reaction(() => this.usersPage, () => {
-            this.pullUsers();
-        },
-            {
-                onError(e) {
-                    console.error('error load users on page',this.usersPage)
-                }
-            }
-        );
-        
-        reaction(() => this.authStore.token, () => {
-            if(!this.authStore.token) return this.forgetCurrentUser();
-            runInAction(() => {
-                this.usersPage = 0;
-            });
-            this.pullCurrentUser();
-        },
-            {
-                onError: (e) => {
-                    //toodo:remove token
-                    this.authStore.logout();
-                    console.error('error load current user:',e)
-                }
-            }
-        );
-    }
+    usersPage= 0;
 
-    get myBooks() {
-        if(!this.currentUser || !this.currentUser.books) {
-            return [];
-        }
-        return getBooks(this.currentUser.books).filter(Boolean)
-    }
-
-    get usersBooks() {
-        let books = [];
-        const users = this.users.slice();
-        console.log('users',users)
-        users.length && 
-        users.map(user => 
-            {  
-                console.log('user',user);
-                user&&
-                user.books&&
-                user.books.length && 
-                user.books.map(({data,updatedAt}) => {
-
-                    data&&
-                    books.push({ ...data,
-                        updatedAt,
-                        userName: user.fullName, 
-                        userThumbnail: user.picture, 
-                        userStars: user.stars,
-                        userId: user.id }
-                    )
-                })
-            }
-        );
-        return books;
+    pullNextPage() {
+        this.usersPage++;
+        this.pullUsers();
     }
 
     pullCurrentUser() {
@@ -99,33 +36,6 @@ class UserStore {
             .finally(action(() => { this.isLoadingUsers = false; }));
     }
 
-    addBook(id, available) {
-        const index = this.currentUser.books.findIndex(book => book.id === id);
-        if(index>-1) return;
-        addBook(id, available)
-        .then(action( ()=>{this.pullCurrentUser()} ))
-    }
-
-    updateBook(id, available) {
-        const index = this.currentUser.books.findIndex(book => book.id === id);
-        if(index>-1) {
-            this.currentUser.books[index].available = available;
-            updateBook(id, available)
-            .catch(action(err => { this.pullCurrentUser(); throw err }));      
-        };
-
-    }
-
-
-    deleteBook(id) {
-        const index = this.currentUser.books.findIndex(book => book.id === id);
-        if (index > -1) {
-            this.currentUser.books.splice(index, 1);
-            deleteBook(id)
-            .catch(action(err => { this.pullCurrentUser(); throw err }));
-        }
-    }
-
     forgetCurrentUser() {
         this.currentUser = undefined;
     }
@@ -138,17 +48,13 @@ decorate(UserStore, {
     isLoadingUsers: observable,
     currentUser: observable,
     selectedUser: observable,
-    myBooks: computed,
-    usersBooks: computed,
     pullCurrentUser: action,
     pullSelectedUser: action,
     pullUsers: action,
-    addBook: action,
-    updateBook: action,
-    deleteBook: action,
+    pullNextUsers: action,
     forgetCurrentUser: action,
-    usersPage: observable
+    usersPage: observable,
 })
 
-const userStore = new UserStore(authStore);
+const userStore = new UserStore();
 export default userStore;

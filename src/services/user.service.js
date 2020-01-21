@@ -6,31 +6,6 @@ const headers = () => getHeaders(authStore.token);
 
 const userApi = '/api/user';
 const userUrl = serverUrl + userApi;
-const booksUrl = userUrl + '/books';
-
-export const updateBook = async (id, available) => {
-    return fetch(booksUrl + '/' + id, {
-        method: 'PUT',
-        headers: headers(),
-        body: JSON.stringify({id, available})
-    }).then(handleErrors).then(json);
-}
-
-export const addBook = async (id, available) => {
-    return fetch(booksUrl, {
-        method: 'POST',
-        headers: headers(),
-        body: JSON.stringify({id, available})
-    }).then(handleErrors).then(json);
-}
-
-export const deleteBook = async (id) => {
-    return fetch(booksUrl + '/' + id, {
-        method: 'DELETE',
-        headers: headers(),
-        body: JSON.stringify({})
-    }).then(handleErrors).then(json);
-}
 
 export const getMyUser = () => {
     return fetch(userUrl + '/me',{
@@ -39,7 +14,7 @@ export const getMyUser = () => {
     .then(handleErrors).then(json)
 }
 
-export const getUsers = (page = 0) => {
+export const getUsers = (page) => {
     return fetch(`${userUrl}?page=${page}`,{
         headers: headers()
     })

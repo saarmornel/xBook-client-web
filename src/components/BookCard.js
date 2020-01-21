@@ -33,13 +33,13 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const BookCard = ({thumbnail,id,author,title,header,actions}) => {
+const BookCard = ({data,header,actions}) => {
+    const {thumbnail,author,title} = data;
     const classes = useStyles();
-    const theme = useTheme();
     return (
             <Card>
               {header}
-              <Divider></Divider>
+              <Divider />
               <div className={classes.cardContent}>
                 <img src={thumbnail}/>
 

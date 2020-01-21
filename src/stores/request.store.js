@@ -1,35 +1,24 @@
 import { decorate, observable, reaction,action, computed } from "mobx";
 import { addRequest, getIncoming, getOutgoing } from '../services/request.service'
-import authStore from "./auth.store";
-import userStore from "./user.store";
 import { updateRequestStatus } from "../services/request.service";
 import { REQUEST_STATUS } from "../services/Request.Status";
+import bookStore from "./book.store";
 
 class RequestStore {
     incoming = [];
     outgoing = [];
-    authStore;
-    constructor(authStore,userStore) {
-        this.authStore = authStore;
-        this.userStore = userStore;
-        reaction(() => this.authStore.token, () => {
-            this.pullIncoming();
-            this.pullOutgoing();
-        },
-            {
-                onError(e) {
-                    console.error('error load requests')
-                }
-            }
-        );
+    bookStore;
+
+    constructor(bookStore) {
+        this.bookStore = bookStore;
     }
 
     addRequest(book, receiving) {
             addRequest(book, receiving)
             .then(action(()=>{
-                let index = this.userStore.users.findIndex(user=>user.id===receiving);
-                index = this.userStore.users[index].books.findIndex(b=>b.id===book);
-                this.userStore.users[index].books.splice(index,1);
+                // let index = this.userStore.users.findIndex(user=>user.id===receiving);
+                // index = this.userStore.users[index].books.findIndex(b=>b.id===book);
+                // this.userStore.users[index].books.splice(index,1);
                 this.pullOutgoing();
             }))
     }
@@ -104,7 +93,10 @@ class RequestStore {
         updateRequestStatus(request, status)
         .then(action(()=>{
             isIncoming ? this.pullIncoming() : this.pullOutgoing();
-            status === REQUEST_STATUS.accepted && this.userStore.pullCurrentUser();
+            if(status === REQUEST_STATUS.accepted) {
+                // this.bookStore.pullBooks();
+                // todo
+            } 
         }))
     }
 }
@@ -117,6 +109,6 @@ decorate(RequestStore, {
     updateReuestStatus: action
 })
 
-const requestStore = new RequestStore(authStore,userStore);
+const requestStore = new RequestStore(bookStore);
 export default requestStore;
 

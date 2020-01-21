@@ -6,7 +6,7 @@ import { inject,observer } from "mobx-react";
 import UserBookCardHeader from "./UserBookCardHeader";
 
 const UserBookCard = (props) => {
-    const {userId,id,requestStore}=props;
+    const {user,id,requestStore}=props;
 
     const header = <UserBookCardHeader {...props}/>
     const actions = (
@@ -21,7 +21,7 @@ const UserBookCard = (props) => {
     )
 
     const handleRequest = () => {
-      requestStore.addRequest(id,userId);
+      requestStore.addRequest(id,user.id);
     }
 
 
