@@ -16,6 +16,7 @@ class UserStore {
     }
 
     pullCurrentUser() {
+        if(this.users.length) return;
         this.isLoadingCurrentUser = true;
         getMyUser()
             .then(action(user => { this.currentUser = user }))
