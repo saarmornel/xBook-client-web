@@ -11,7 +11,7 @@ const gridWrap = (Card) =>
                 <Grid container spacing={4}>
                     {props.books.map(book =>
                     <Grid item key={book.id} xs={12} sm={12} md={12}>
-                        <Card key={book.id} {...book} {...props}/>
+                        <Card {...book} {...props}/>
                     </Grid>
                     )}
                 </Grid>

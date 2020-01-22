@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BookGrid} from "../components/BookGrid";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -15,6 +15,8 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Giveaway = (props) => {
+    useEffect(()=>{props.bookStore.pullMyBooks()},[])
+    console.log('check')
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true)
@@ -23,15 +25,14 @@ const Giveaway = (props) => {
     const handleClose = (id) => {
         console.log(id)
         setOpen(false);
-        id && props.userStore.addBook(id, true);
+        id && props.bookStore.addBook(id, true);
       };
 
     const classes = useStyles();
-    const books = props.userStore.myBooks || [];
-    console.log(books)
+
     return (
         <React.Fragment>
-            <BookGrid books={books}/>
+            <BookGrid books={props.bookStore.myBooks}/>
             <AddBookDialog handleClose={handleClose} open={open}/>
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleClickOpen}>
                 <AddIcon />
@@ -40,4 +41,4 @@ const Giveaway = (props) => {
     );
 };
 
-export default inject('userStore')(observer(Giveaway));
+export default inject('bookStore')(observer(Giveaway));

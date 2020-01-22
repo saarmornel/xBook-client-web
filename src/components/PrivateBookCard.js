@@ -4,11 +4,9 @@ import { observer,inject } from "mobx-react";
 import DeleteIcon from '@material-ui/icons/Delete';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from '@material-ui/core';
 
 const useStyle = makeStyles((theme)=>({
   actions: {
@@ -25,7 +23,7 @@ const useStyle = makeStyles((theme)=>({
 const PrivateBookCard = (props) => {
     const classes = useStyle();
     const handleChange = event => {
-      props.userStore.updateBook(props.id,event.target.checked)
+      props.bookStore.updateBook(props.id,event.target.checked)
     };
 
     const actions =
@@ -46,7 +44,7 @@ const PrivateBookCard = (props) => {
 
 
         <Button
-        onClick={()=>props.userStore.deleteBook(props.id)}
+        onClick={()=>props.bookStore.deleteBook(props.id)}
         startIcon={<DeleteIcon />}
         size="small"
         >
@@ -59,4 +57,4 @@ const PrivateBookCard = (props) => {
     );
 };
 
-export default inject('userStore')(observer(PrivateBookCard));
+export default inject('bookStore')(observer(PrivateBookCard));

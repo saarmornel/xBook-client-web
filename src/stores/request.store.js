@@ -16,9 +16,8 @@ class RequestStore {
     addRequest(book, receiving) {
             addRequest(book, receiving)
             .then(action(()=>{
-                // let index = this.userStore.users.findIndex(user=>user.id===receiving);
-                // index = this.userStore.users[index].books.findIndex(b=>b.id===book);
-                // this.userStore.users[index].books.splice(index,1);
+                const index = this.bookStore.books.findIndex(book=>book.user.id===receiving);
+                this.bookStore.books.splice(index,1);
                 this.pullOutgoing();
             }))
     }
