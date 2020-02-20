@@ -1,10 +1,11 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { RequestBookGrid } from './BookGrid';
 import { inject,observer } from "mobx-react";
 
 const OutgoingRequests = ({requestStore}) => {
+    useEffect(()=>{requestStore.pullOutgoing()},[])
     return (
-        <RequestBookGrid books={requestStore.outgoingBooks} />
+        <RequestBookGrid books={requestStore.outgoing} isIncoming={false} />
     );
 };
 
