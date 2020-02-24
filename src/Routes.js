@@ -15,20 +15,21 @@ const Routes = () => {
     <Switch>
       <Route path="/sign_in" component={SignIn}/>
       <Route path="/app" component={AppLayout}/>
-      <Route path="/" component={NotFound}/>
+      <Redirect to="/app" />
+      {/* <Route path="/" component={NotFound}/> */}
     </Switch>
   )
 }
 
 const AppLayout = () => {
   return (
-    <React.Fragment>
+    <Switch>
       <PrivateRoute path="/app/explore" component={Explore} exact></PrivateRoute>
       <PrivateRoute path="/app/giveaway" component={Giveaway} exact></PrivateRoute>
       <PrivateRoute path="/app/requests" component={Requests} exact></PrivateRoute>
       <PrivateRoute path="/app/settings" component={Settings} exact></PrivateRoute>
       <Redirect exact from="/app" to="/app/explore" />
-    </React.Fragment>
+    </Switch>
   )
 }
 

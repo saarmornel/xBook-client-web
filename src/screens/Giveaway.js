@@ -15,8 +15,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Giveaway = (props) => {
-    useEffect(()=>{props.bookStore.pullMyBooks()},[])
-    console.log('check')
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true)
