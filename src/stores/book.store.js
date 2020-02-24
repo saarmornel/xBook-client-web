@@ -14,7 +14,6 @@ class BookStore {
     }
 
     pullBooks() {
-        if(this.books.length) return;
         this.isLoadingBooks = true;
         getBooks(this.booksPage)
             .then(action(books => { this.books = this.books.concat(books) }))
