@@ -58,7 +58,7 @@ const SignIn =
         const onSuccess = async (token) => {
             console.log('auth succeeded');
             await props.authStore.setToken(token);
-            history.replace('/');
+            history.replace('/app');
         }
 
         return (

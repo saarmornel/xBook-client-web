@@ -19,7 +19,7 @@ const stores = {
 };
 
 function App() {
-  useEffect(()=> {loadToken(stores)},[])
+  useEffect(()=> stores.authStore.loadToken(),[])
   return (
     <Provider {...stores}>
       <CssBaseline />
@@ -31,8 +31,3 @@ function App() {
 }
 
 export default App;
-
-
-const loadToken = (stores) => {
-    stores.authStore.loadToken();
-}

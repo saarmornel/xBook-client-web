@@ -17,7 +17,7 @@ const BottomNavbar = () => {
     const [value, setValue] = React.useState('explore');
     const classes = useStyles();
     const location = useLocation();
-    useEffect(()=>{setValue(location.pathname.slice(1))},[]);
+    useEffect(()=>{setValue(location.pathname.slice(1).split('/')[1])},[]);
 
     return (
         <BottomNavigation
@@ -27,10 +27,10 @@ const BottomNavbar = () => {
           }}
         className={classes.root}
         >
-          <BottomNavigationAction component={Link} to="/explore" value="explore" label="Explore" icon={<Search />}></BottomNavigationAction>
-          <BottomNavigationAction component={Link} to="/giveaway" label="Giveaway" value="giveaway" icon={<LibraryBooks />}></BottomNavigationAction>  
-          <BottomNavigationAction component={Link} to="/requests" label="Requests" value="requests" icon={<SwapCalls />}></BottomNavigationAction>
-          {/* <BottomNavigationAction component={Link} to="/settings" label="Settings" value="settings" icon={<Settings />}></BottomNavigationAction> */}
+          <BottomNavigationAction component={Link} to="/app/explore" value="explore" label="Explore" icon={<Search />}></BottomNavigationAction>
+          <BottomNavigationAction component={Link} to="/app/giveaway" label="Giveaway" value="giveaway" icon={<LibraryBooks />}></BottomNavigationAction>  
+          <BottomNavigationAction component={Link} to="/app/requests" label="Requests" value="requests" icon={<SwapCalls />}></BottomNavigationAction>
+          {/* <BottomNavigationAction component={Link} to="/app/settings" label="Settings" value="settings" icon={<Settings />}></BottomNavigationAction> */}
         </BottomNavigation>
     );
 };
