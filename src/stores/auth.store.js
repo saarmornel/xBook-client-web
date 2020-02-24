@@ -23,7 +23,7 @@ class AuthStore {
 
     loadToken() {
         this.isLoading = true;
-        return AsyncStorage.getItem(authCookie)
+        AsyncStorage.getItem(authCookie)
         .then( action((token) => {this.token = token}) )
         .finally( action(() => {this.isLoading = false}) );
     }
