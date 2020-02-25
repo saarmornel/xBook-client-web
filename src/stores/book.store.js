@@ -51,7 +51,7 @@ class BookStore {
         if (index > -1) {
             this.myBooks.splice(index, 1);
             deleteBook(id)
-            .catch(action(err => { this.pullmyBooks(); throw err }));
+            .catch(action(err => { this.pullMyBooks(); throw err }));
         }
     }
 
