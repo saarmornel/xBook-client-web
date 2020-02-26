@@ -84,10 +84,10 @@ const RequestBookCard = (props) => {
           <Mail />
         </IconButton>
         }
-        {user.email && <IconButton className={classes.icon} color="primary" size="small" href={`http://m.me/${user.email}`}>
+        {/* {user.email && <IconButton className={classes.icon} color="primary" size="small" href={`http://m.me/${user.email}`}>
           <FacebookMessenger />
         </IconButton>
-        }
+        } */}
       </div>
     );
 
