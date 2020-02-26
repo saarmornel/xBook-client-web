@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 const RequestBookCard = (props) => {
-    const {userId,id,requestStore,status,isIncoming,userMail,userPhone}=props;
+    const {id,requestStore,status,isIncoming,user}=props;
     const classes = useStyles();
 
     const header = <UserBookCardHeader {...props}/>
@@ -59,11 +59,11 @@ const RequestBookCard = (props) => {
     //actions to make contact with each other
     const contactAction = (
       <React.Fragment>
-        {userPhone && <IconButton color="primary" size="small" href={`tel:${userPhone}`}>
+        {user.phone && <IconButton color="primary" size="small" href={`tel:${user.phone}`}>
           <Phone />
         </IconButton>
         }
-        {userMail && <IconButton color="primary" size="small" href={`mailto:${userMail}`}>
+        {user.mail && <IconButton color="primary" size="small" href={`mailto:${user.mail}`}>
           <Mail />
         </IconButton>
         }

@@ -9,13 +9,13 @@ import {
     useLocation
 } from "react-router-dom";
 import { inject, observer } from 'mobx-react';
-import { serverUrl } from "../config";
+import { FB_URL } from "../config";
 import { Container,Avatar, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from "./logo.png";
-const qs = require('query-string');
+import { Facebook } from '@material-ui/icons';
 
-const FB_URL=`${serverUrl}/api/auth/facebook/`;
+const qs = require('query-string');
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -58,7 +58,7 @@ const SignIn =
         const onSuccess = async (token) => {
             console.log('auth succeeded');
             await props.authStore.setToken(token);
-            history.replace('/');
+            history.replace('/app');
         }
 
         return (
@@ -67,8 +67,13 @@ const SignIn =
                 <Typography component="h1" variant="h6">
                     xBook
                 </Typography>
-                <Button href={FB_URL}
-                fullWidth variant="contained" color="primary" className={classes.submit}>Continue with Facebook</Button>
+                <Button 
+                href={FB_URL}
+                startIcon={<Facebook />}
+                fullWidth 
+                variant="contained" 
+                color="primary" 
+                className={classes.submit}>Continue with Facebook</Button>
             </Container>
         );
     }

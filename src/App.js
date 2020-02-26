@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import {observer} from 'mobx-react';
 import Routes from "./Routes";
 import userStore from './stores/user.store';
 import authStore from './stores/auth.store';
@@ -19,7 +20,15 @@ const stores = {
 };
 
 function App() {
-  useEffect(()=> {loadToken(stores)},[])
+  useEffect(()=> stores.authStore.loadToken(),[])
+  if(stores.authStore.token) {
+    stores.requestStore.pullIncoming();
+    stores.requestStore.pullOutgoing();
+    stores.bookStore.pullBooks();
+    stores.bookStore.pullMyBooks();
+  }
+
+
   return (
     <Provider {...stores}>
       <CssBaseline />
@@ -30,9 +39,4 @@ function App() {
   );
 }
 
-export default App;
-
-
-const loadToken = (stores) => {
-    stores.authStore.loadToken();
-}
+export default observer(App);

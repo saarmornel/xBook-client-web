@@ -14,7 +14,6 @@ class BookStore {
     }
 
     pullBooks() {
-        if(this.books.length) return;
         this.isLoadingBooks = true;
         getBooks(this.booksPage)
             .then(action(books => { this.books = this.books.concat(books) }))
@@ -52,7 +51,7 @@ class BookStore {
         if (index > -1) {
             this.myBooks.splice(index, 1);
             deleteBook(id)
-            .catch(action(err => { this.pullmyBooks(); throw err }));
+            .catch(action(err => { this.pullMyBooks(); throw err }));
         }
     }
 

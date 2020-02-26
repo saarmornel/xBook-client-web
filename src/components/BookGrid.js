@@ -3,9 +3,10 @@ import { Container, Grid } from "@material-ui/core";
 import UserBookCard from './UserBookCard';
 import RequestBookCard from './RequestBookCard';
 import PrivateBookCard from './PrivateBookCard';
+import { observer } from 'mobx-react';
 
 const gridWrap = (Card) => 
-    (props) => {
+    observer((props) => {
         return (
             <Container maxWidth="md">
                 <Grid container spacing={4}>
@@ -18,7 +19,7 @@ const gridWrap = (Card) =>
             </Container>
     
         );
-}
+})
 
 // export default BookGrid;
 
