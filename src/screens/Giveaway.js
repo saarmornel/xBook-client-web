@@ -22,7 +22,6 @@ const Giveaway = (props) => {
     }
 
     const handleClose = (id) => {
-        console.log(id)
         setOpen(false);
         id && props.bookStore.addBook(id, true);
       };

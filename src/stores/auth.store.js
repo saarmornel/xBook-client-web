@@ -7,7 +7,6 @@ class AuthStore {
     isLoading = true;
 
     setToken(token) {
-        console.log('setToken')
         this.isLoading = true;
         AsyncStorage.setItem(authCookie, token)
         .then( action(() => {this.token = token}) )
