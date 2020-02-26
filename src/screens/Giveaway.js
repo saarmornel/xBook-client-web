@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Giveaway = (props) => {
+    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true)
@@ -25,8 +26,6 @@ const Giveaway = (props) => {
         setOpen(false);
         id && props.bookStore.addBook(id, true);
       };
-
-    const classes = useStyles();
 
     return (
         <React.Fragment>
