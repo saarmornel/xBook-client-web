@@ -19,7 +19,6 @@ class RequestStore {
                 const index = this.bookStore.books.findIndex(b=>
                     b.user.id===receiving && b.id===book
                 );
-                console.log(index);
                 this.bookStore.books.splice(index,1);
                 this.pullOutgoing();
             }))

@@ -4,4 +4,3 @@ export const authCookie = 'authToken';
 export const FB_URL = `${serverUrl}/api/auth/facebook/`;
 export const CLIENT_URL = 'https://xbook-web.herokuapp.com/';
 export const APP_NAME = 'xBook';
-console.log('isLocal:',true)
