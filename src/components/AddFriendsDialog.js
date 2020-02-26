@@ -1,11 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FB_URL,CLIENT_URL,APP_NAME } from "../config";
 import { useTheme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Button, TextField,makeStyles,Container } from "@material-ui/core";
@@ -62,6 +59,7 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
             <DialogContent>
                     <Container className={classes.paper}>
                         <Button
+                            onClick={()=>onShare}
                             fullWidth 
                             variant="outlined" 
                             className={classes.button}>Share xBook</Button>
@@ -75,10 +73,6 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
             </DialogContent>
         </Dialog>
     );
-};
-
-AddFriendsDialog.propTypes = {
-    
 };
 
 export default withStyles(styles)(AddFriendsDialog);
