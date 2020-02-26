@@ -21,10 +21,13 @@ const stores = {
 
 function App() {
   useEffect(()=> stores.authStore.loadToken(),[])
-  useEffect(()=>{stores.authStore.token&&stores.requestStore.pullIncoming()},[stores.authStore.token])
-  useEffect(()=>{stores.authStore.token&&stores.requestStore.pullOutgoing()},[stores.authStore.token])
-  useEffect(()=>{stores.authStore.token&&stores.bookStore.pullBooks()},[stores.authStore.token])
-  useEffect(()=>{stores.authStore.token&&stores.bookStore.pullMyBooks()},[stores.authStore.token])
+  if(stores.authStore.token) {
+    stores.requestStore.pullIncoming();
+    stores.requestStore.pullOutgoing();
+    stores.bookStore.pullBooks();
+    stores.bookStore.pullMyBooks();
+  }
+
 
   return (
     <Provider {...stores}>
