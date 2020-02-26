@@ -11,13 +11,30 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Mail, Phone } from "@material-ui/icons";
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
+import SvgIcon from '@material-ui/core/SvgIcon';
+
+const FacebookMessenger = (props) => (
+  <SvgIcon {...props}>
+    <path d="M12 0c-6.627 0-12 4.975-12 11.111 0 3.497 1.745 6.616 4.472 8.652v4.237l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111 0-6.136-5.373-11.111-12-11.111zm1.193 14.963l-3.056-3.259-5.963 3.259 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"/>
+  </SvgIcon>
+)
 
 const useStyles = makeStyles(theme => ({
+  actions: {
+    flexFlow: 'wrap'
+  },
   progress: {
     marginTop: theme.spacing(1),
   },
   divider: {
     margin: theme.spacing(1,0,1,0)
+  },
+  icon: {
+    padding: theme.spacing(0,1)
+  },
+  contactAction: {
+    width: '100%',
+    padding: theme.spacing(0,1,2)
   }
 }))
 const RequestBookCard = (props) => {
@@ -58,16 +75,20 @@ const RequestBookCard = (props) => {
         
     //actions to make contact with each other
     const contactAction = (
-      <React.Fragment>
-        {user.phone && <IconButton color="primary" size="small" href={`tel:${user.phone}`}>
+      <div className={classes.contactAction}>
+        {user.phone && <IconButton className={classes.icon} color="primary" size="small" href={`tel:${user.phone}`}>
           <Phone />
         </IconButton>
         }
-        {user.mail && <IconButton color="primary" size="small" href={`mailto:${user.mail}`}>
+        {user.email && <IconButton className={classes.icon} color="primary" size="small" href={`mailto:${user.email}`}>
           <Mail />
         </IconButton>
         }
-      </React.Fragment>
+        {user.email && <IconButton className={classes.icon} color="primary" size="small" href={`http://m.me/${user.email}`}>
+          <FacebookMessenger />
+        </IconButton>
+        }
+      </div>
     );
 
 
@@ -91,10 +112,10 @@ const RequestBookCard = (props) => {
     
 
     const actions = (status)=> (
-      <CardActions key="actions">
+      <CardActions key="actions" className={classes.actions}>
+        {status === REQUEST_STATUS.approved && contactAction}
         {status === REQUEST_STATUS.pending && isIncoming && pendingAction}
         {status === REQUEST_STATUS.approved && !isIncoming && approvedAction}
-        {status === REQUEST_STATUS.approved && contactAction}
         {!(status === REQUEST_STATUS.declined || status === REQUEST_STATUS.accepted) && cancelAction}
       </CardActions>
     );
