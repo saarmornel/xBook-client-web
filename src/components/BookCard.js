@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 const BookCard = ({data,header,actions}) => {
-    const {thumbnail,author,title} = data;
+    const {thumbnail,author,title,more} = data;
     const classes = useStyles();
     return (
             <Card>
@@ -45,7 +45,7 @@ const BookCard = ({data,header,actions}) => {
 
                 <div className={classes.content}>
                   <CardContent>
-                    <Typography noWrap component="h5" variant="subtitle1">
+                    <Typography noWrap component="h5" variant="subtitle1"> 
                         {title}
                     </Typography>
                     <Typography noWrap variant="subtitle1" color="textSecondary">
