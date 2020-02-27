@@ -2,25 +2,18 @@ import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Button, TextField,makeStyles,Container } from "@material-ui/core";
+import { Button,makeStyles,Container } from "@material-ui/core";
 import { useTheme } from '@material-ui/core/styles';
 import BookList from './BookList';
 import { searchBook } from '../services/book.service';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import SearchBox from './SearchBox';
 
-const useStyles = makeStyles(theme => ({
-    searchField: {
-    },
-  }));
-
-  
 const AddBookDialog = ({ handleClose, open }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const classes = useStyles();
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -51,10 +44,7 @@ const AddBookDialog = ({ handleClose, open }) => {
             <DialogTitle id="add-book">{"Add a book to giveaways"}</DialogTitle>
             <DialogContent>
                     <Container>
-                        <TextField
-                        onChange={(event)=> onSearchBook(event.target.value)}
-                        value={search}
-                        id="search-book" className={classes.searchField} label="Search book" />
+                        <SearchBox search={search} onSearchBook={onSearchBook}/>
                         { isLoading ? <CircularProgress/>
                             : <BookList books={results} handleBookSelect={setSelectedId}/>}
                     </Container>
