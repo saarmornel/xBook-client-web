@@ -9,7 +9,7 @@ import AddFriendsDialog from '../components/AddFriendsDialog';
 const useStyles = makeStyles(theme => ({
     fab: {
         position: 'absolute',
-        bottom: theme.spacing(10),
+        bottom: theme.spacing(9),
         right: theme.spacing(4),
     }
 }))
