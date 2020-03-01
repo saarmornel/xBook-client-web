@@ -5,7 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import IncomingRequests from '../components/IncomingRequests';
 import OutgoingRequests from '../components/OutgoingRequests';
 
@@ -49,7 +48,7 @@ const Requests = () => {
     };
     return (
         <div className={classes.root}>
-            <AppBar>
+            <AppBar color="default">
                 <Tabs value={value} onChange={handleChange} centered>
                     <Tab label="Incoming" id="incoming" />
                     <Tab label="Outgoing" id="outgoing" />

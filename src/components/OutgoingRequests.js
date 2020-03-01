@@ -5,7 +5,7 @@ import EmptyState from '../components/EmptyState';
 
 const OutgoingRequests = ({requestStore}) => {
     return !requestStore.outgoing.length ? 
-            <EmptyState title="No requests to show"/>
+            <EmptyState text="No requests to show"/>
     : (
         <RequestBookGrid books={requestStore.outgoing} isIncoming={false} />
     );
