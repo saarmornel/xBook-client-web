@@ -37,7 +37,7 @@ const BookCard = ({data,header,actions}) => {
                 <div className={classes.content}>
                   <CardContent>
                     <Typography component="h5" variant="subtitle1">
-                        <Link href={more}>
+                        <Link href={more} target="_blank" rel="noopener">
                           {title}
                         </Link>
                     </Typography>
