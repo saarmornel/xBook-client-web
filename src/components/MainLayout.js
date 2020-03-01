@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline, Container } from '@material-ui/core';
 import BottomNavbar from './BottomNavbar';
+import TopNavbar from './TopNavbar';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -10,8 +11,6 @@ const useStyles = makeStyles(theme => ({
       height: '100%',
     },
     main: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(2),
       overflowY: 'auto',
       height: '100%',
     },
@@ -26,9 +25,13 @@ const MainLayout = (props) => {
 
     return (
         <div className={classes.root}>
-          <Container component="main" className={classes.main} maxWidth="sm">
+          <header>
+            <TopNavbar/>
+          </header>
+
+          <main className={classes.main}>
             {props.children}
-          </Container>
+          </main>
 
           <footer className={classes.footer}>
             <Container component="nav" maxWidth="sm" disableGutters>

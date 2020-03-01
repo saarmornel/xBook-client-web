@@ -48,8 +48,8 @@ const Requests = () => {
     };
     return (
         <div className={classes.root}>
-            <AppBar color="default">
-                <Tabs value={value} onChange={handleChange} centered>
+            <AppBar color="primary" position="static">
+                <Tabs value={value} onChange={handleChange} variant="fullWidth">
                     <Tab label="Incoming" id="incoming" />
                     <Tab label="Outgoing" id="outgoing" />
                 </Tabs>
