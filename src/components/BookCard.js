@@ -42,7 +42,7 @@ const BookCard = ({data,header,actions}) => {
                         </Link>
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                        by {author}
+                        {author&&'by '+author}
                     </Typography>
                   </CardContent>
             

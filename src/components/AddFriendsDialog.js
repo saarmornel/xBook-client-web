@@ -1,5 +1,5 @@
 import React from 'react';
-import { FB_URL,CLIENT_URL,APP_NAME } from "../config";
+import { FB_URL } from "../config";
 import { useTheme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,12 +10,9 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { Facebook } from '@material-ui/icons';
+import { shareApp } from "../services/helpers";
 
 const styles = theme => ({
-    root: {
-      margin: 0,
-      padding: theme.spacing(2),
-    },
     closeButton: {
       position: 'absolute',
       right: theme.spacing(1),
@@ -29,18 +26,6 @@ const styles = theme => ({
         marginTop: theme.spacing(10),
     }
 });
-
-const onShare = () => {
-    if(navigator.share) {
-        navigator.share({
-          title: APP_NAME,
-          text: 'Trade books with your friends',
-          url: CLIENT_URL
-        })
-        .then(() => console.log('Share complete'))
-        .error((error) => console.error('Could not share at this time', error))
-      }
-}
 
 const AddFriendsDialog = ({ handleClose, open, classes }) => {
     const theme = useTheme();
@@ -59,7 +44,7 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
             <DialogContent>
                     <Container className={classes.paper}>
                         <Button
-                            onClick={()=>onShare()}
+                            onClick={()=>shareApp()}
                             fullWidth 
                             variant="outlined" 
                             className={classes.button}>Share xBook</Button>
