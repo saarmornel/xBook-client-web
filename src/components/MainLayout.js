@@ -10,13 +10,17 @@ const useStyles = makeStyles(theme => ({
       height: '100vh',
     },
     main: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(2),
+      marginTop: theme.spacing(5),
+      marginBottom: '60px',
       overflowY: 'auto',
       height: '100%',
     },
     footer: {
-      marginTop: 'auto',
+      backgroundColor: '#fff',
+      position: 'fixed',
+      bottom: 0,
+      zIndex: 100,
+      width: '100%'
     }
   }));
 
