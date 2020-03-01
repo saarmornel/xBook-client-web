@@ -6,6 +6,7 @@ import { inject, observer } from "mobx-react";
 import { makeStyles } from '@material-ui/core';
 import AddBookDialog from '../components/AddBookDialog';
 import EmptyState from '../components/EmptyState'
+import logo from './EmptyBook.png';
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -30,7 +31,7 @@ const Giveaway = (props) => {
     return (
         <React.Fragment>
             {!props.bookStore.myBooks.length && 
-            <EmptyState title="No books to show" text="Your books will show up here."/>
+            <EmptyState title="No books to show" text="Your books will show up here." logo={logo}/>
             }
             <BookGrid books={props.bookStore.myBooks}/>
             <AddBookDialog handleClose={handleClose} open={open}/>

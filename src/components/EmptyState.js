@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, Container, Typography, Link, Box } from '@material-ui/core';
-import logo from "./emptyState.png";
+import { makeStyles, Container, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     avatar: {
@@ -21,8 +20,8 @@ const EmptyState = props => {
 
     return (
         <Container maxWidth="xs" className={classes.paper}>
-            <img className={classes.avatar} src={props.logo || logo}/>
-            <Typography align="center" variant="h5" gutterBottom={2}>
+            {props.logo&&<img className={classes.avatar} src={props.logo}/>}
+            <Typography align="center" variant="h5" gutterBottom={true}>
                 {props.title}
             </Typography>
             <Typography align="center" variant="subtitle1" >

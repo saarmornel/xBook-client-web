@@ -6,6 +6,7 @@ import { PersonAdd } from '@material-ui/icons';
 import { makeStyles} from '@material-ui/core';
 import AddFriendsDialog from '../components/AddFriendsDialog';
 import EmptyState from '../components/EmptyState';
+import logo from './EmptyBook.png';
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -29,7 +30,7 @@ const Explore = (props) => {
     return (
         <React.Fragment>
             {!props.bookStore.books.length && 
-            <EmptyState title="No books to show" text="Your friends books will show up here."/>
+            <EmptyState title="No books to show" text="Your friends books will show up here." logo={logo}/>
             }
             <UserBookGrid books={props.bookStore.books}/>
             <AddFriendsDialog handleClose={handleClose} open={open}/>
