@@ -7,20 +7,17 @@ const useStyles = makeStyles(theme => ({
     root: {
       display: 'flex',
       flexDirection: 'column',
-      height: '100vh',
+      height: '100%',
     },
     main: {
-      marginTop: theme.spacing(5),
-      marginBottom: '60px',
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(2),
       overflowY: 'auto',
       height: '100%',
     },
     footer: {
       backgroundColor: '#fff',
-      position: 'fixed',
-      bottom: 0,
-      zIndex: 100,
-      width: '100%'
+      marginTop: 'auto',
     }
   }));
 
