@@ -6,14 +6,16 @@ import Typography from '@material-ui/core/Typography';
 import {APP_NAME} from '../config';
 import LocalLibrarySharpIcon from '@material-ui/icons/LocalLibrarySharp';
 import { Icon } from '@material-ui/core';
+import logo from './logo.png';
 
 const useStyles = makeStyles(theme => ({
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
     title: {
       flexGrow: 1,
     },
+    avatar: {
+      height: '50px',
+      marginRight: theme.spacing(2),
+    }
   }));
 
 const TopNavbar = props => {
@@ -21,9 +23,10 @@ const TopNavbar = props => {
     return (
     <AppBar position="static">
         <Toolbar>
-          <Icon edge="start" className={classes.menuButton} color="inherit">
+          {/* <Icon edge="start" className={classes.menuButton} color="inherit">
             <LocalLibrarySharpIcon />
-          </Icon>
+          </Icon> */}
+          <img className={classes.avatar} src={logo}></img>
           <Typography variant="h6" className={classes.title}>
             {APP_NAME}
           </Typography>
