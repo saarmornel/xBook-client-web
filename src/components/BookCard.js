@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
     },
     
     content: {
-      width: '45vw'
+      width: '45vw',
+      overflow: 'hidden'
     },
   }));
 
@@ -35,12 +36,12 @@ const BookCard = ({data,header,actions}) => {
 
                 <div className={classes.content}>
                   <CardContent>
-                    <Typography noWrap component="h5" variant="subtitle1">
+                    <Typography component="h5" variant="subtitle1">
                         <Link href={more}>
                           {title}
                         </Link>
                     </Typography>
-                    <Typography noWrap variant="subtitle1" color="textSecondary">
+                    <Typography variant="subtitle1" color="textSecondary">
                         by {author}
                     </Typography>
                   </CardContent>
