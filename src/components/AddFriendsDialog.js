@@ -59,7 +59,7 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
             <DialogContent>
                     <Container className={classes.paper}>
                         <Button
-                            onClick={()=>onShare}
+                            onClick={()=>onShare()}
                             fullWidth 
                             variant="outlined" 
                             className={classes.button}>Share xBook</Button>
