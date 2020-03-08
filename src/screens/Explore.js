@@ -29,7 +29,7 @@ const Explore = (props) => {
     
     return (
         <React.Fragment>
-            {!props.bookStore.books.length && 
+            {!props.bookStore.isLoadingBooks && !props.bookStore.books.length && 
             <EmptyState title="No books to show" text="Your friends books will show up here." logo={logo}/>
             }
             <UserBookGrid books={props.bookStore.books}/>

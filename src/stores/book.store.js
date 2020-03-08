@@ -6,7 +6,8 @@ class BookStore {
     booksPage = 0;
     myBooks = []; 
     books = [];
-    isLoadingBooks;
+    isLoadingBooks = true;
+    isLoadingMyBooks = true;
 
     pullNextPage() {
         this.booksPage++;
@@ -20,12 +21,11 @@ class BookStore {
             .finally(action(() => { this.isLoadingBooks = false; }));
     }
 
-    // todo: individual isLoading
     pullMyBooks() {
-        this.isLoadingBooks = true;
+        this.isLoadingMyBooks = true;
         getMyBooks()
             .then(action(books => { this.myBooks = books }))
-            .finally(action(() => { this.isLoadingBooks = false }));
+            .finally(action(() => { this.isLoadingMyBooks = false }));
     }
 
     addBook(id, available) {
