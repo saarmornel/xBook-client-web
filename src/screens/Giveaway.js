@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core';
 import AddBookDialog from '../components/AddBookDialog';
 import EmptyState from '../components/EmptyState'
 import logo from './EmptyBook.png';
+import Loading from '../components/Loading';
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -28,6 +29,7 @@ const Giveaway = (props) => {
         id && props.bookStore.addBook(id, true);
       };
 
+      if(props.bookStore.isLoadingBooks) return <Loading/>
     return (
         <React.Fragment>
             {!props.bookStore.isLoadingMyBooks && !props.bookStore.myBooks.length && 

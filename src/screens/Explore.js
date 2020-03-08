@@ -7,6 +7,7 @@ import { makeStyles} from '@material-ui/core';
 import AddFriendsDialog from '../components/AddFriendsDialog';
 import EmptyState from '../components/EmptyState';
 import logo from './EmptyBook.png';
+import Loading from '../components/Loading';
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -27,9 +28,10 @@ const Explore = (props) => {
         setOpen(false);
       };
     
+    if(props.bookStore.isLoadingBooks) return <Loading/>
     return (
         <React.Fragment>
-            {!props.bookStore.isLoadingBooks && !props.bookStore.books.length && 
+            {!props.bookStore.books.length && 
             <EmptyState title="No books to show" text="Your friends books will show up here." logo={logo}/>
             }
             <UserBookGrid books={props.bookStore.books}/>

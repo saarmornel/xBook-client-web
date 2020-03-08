@@ -1,8 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Loading from '../components/Loading';
 import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
-import { autorun } from 'mobx';
 import MainLayout from './MainLayout';
 
 const PrivateRoute = ({ component: Component, authStore, ...rest }) => {
@@ -12,7 +11,7 @@ const PrivateRoute = ({ component: Component, authStore, ...rest }) => {
       {...rest}
       render={routeProps => {
           if(isLoading) {
-            return <CircularProgress></CircularProgress>
+            return <Loading/>
           }
           return isLoggedIn // your auth mechanism goes here
           ? <MainLayout><Component {...routeProps} /></MainLayout>
