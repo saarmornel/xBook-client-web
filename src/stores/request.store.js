@@ -16,10 +16,10 @@ class RequestStore {
     addRequest(book, receiving) {
             addRequest(book, receiving)
             .then(action(()=>{
-                const index = this.bookStore.books.findIndex(b=>
-                    b.user.id===receiving && b.id===book
-                );
-                this.bookStore.books.splice(index,1);
+                // const index = this.bookStore.books.findIndex(b=>
+                //     b.user.id===receiving && b.id===book
+                // );
+                // this.bookStore.books.splice(index,1);
                 this.pullOutgoing();
             }))
     }
