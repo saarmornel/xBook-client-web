@@ -65,6 +65,7 @@ decorate(BookStore, {
     books: observable,
     myBooks: observable,
     isLoadingBooks: observable,
+    isLoadingMyBooks: observable,
     pullNextBooks: action,
     pullMyBooks: action,
     nextPage: action
