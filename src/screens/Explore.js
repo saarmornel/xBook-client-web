@@ -26,7 +26,7 @@ const Explore = (props) => {
 
     const handleClose = () => {
         setOpen(false);
-      };
+    };
     
     if(props.bookStore.isLoadingBooks) return <Loading/>
     return (

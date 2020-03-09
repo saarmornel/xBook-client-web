@@ -1,10 +1,10 @@
 import React from 'react';
 import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import Rating from '@material-ui/lab/Rating';
-import BookIcon from '@material-ui/icons/Book';
+import UserAvatar from '../components/UserAvatar';
+
 import { makeStyles } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
+import UserRating from './UserRating';
 
 const useStyles = makeStyles({
   rating: {
@@ -18,16 +18,9 @@ const UserBookCardHeader = (props) => {
     const classes = useStyles();
     const {user,updatedAt}=props;
     const date = (new Date(updatedAt)).toLocaleDateString("en-US",{year: 'numeric', month: 'long', day: 'numeric' });
-    const rating =  <Rating precision={0.5} size="small" name="book-stars" 
-    value={user.stars} disabled 
-    icon={<BookIcon fontSize="inherit"/>}/>
     const header = (
         <CardHeader
-        avatar={
-          <Avatar src={user.picture}>
-            {user.fullName&&user.fullName.slice(0,1)}
-          </Avatar>
-        }
+        avatar={<UserAvatar picture={user.picture} name={user.fullName}/>}
         // action={
         //   <IconButton aria-label="settings">
         //     <MoreVertIcon />
@@ -38,7 +31,7 @@ const UserBookCardHeader = (props) => {
         <span className={classes.rating}>
           {date}
           <Box ml={1} mr={1} component="span">•</Box>
-          {rating}
+          <UserRating stars={user.stars} given={user.given} received={user.received}/>
         </span>
         }
       />
