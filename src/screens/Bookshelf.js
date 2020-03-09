@@ -32,7 +32,7 @@ const Bookshelf = (props) => {
       if(props.bookStore.isLoadingBooks) return <Loading/>
     return (
         <React.Fragment>
-            {!props.bookStore.isLoadingMyBooks && !props.bookStore.myBooks.length && 
+            {!props.bookStore.myBooks.length && 
             <EmptyState title="No books to show" text="Your books will show up here." logo={logo}/>
             }
             <BookGrid books={props.bookStore.myBooks}/>
