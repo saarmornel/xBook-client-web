@@ -24,7 +24,7 @@ const UserBookCardHeader = (props) => {
     const header = (
         <CardHeader
         avatar={
-          <Avatar src={user.thumbnail}>
+          <Avatar src={user.picture}>
             {user.fullName&&user.fullName.slice(0,1)}
           </Avatar>
         }
