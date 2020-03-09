@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Giveaway = (props) => {
+const Bookshelf = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
@@ -44,4 +44,4 @@ const Giveaway = (props) => {
     );
 };
 
-export default inject('bookStore')(observer(Giveaway));
+export default inject('bookStore')(observer(Bookshelf));

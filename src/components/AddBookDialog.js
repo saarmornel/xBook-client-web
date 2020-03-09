@@ -41,7 +41,7 @@ const AddBookDialog = ({ handleClose, open }) => {
             onClose={handleClose}
             aria-labelledby="add-book"
         >
-            <DialogTitle id="add-book">{"Add a book to giveaways"}</DialogTitle>
+            <DialogTitle id="add-book">{"Add a Book to Your Bookshelf"}</DialogTitle>
             <DialogContent>
                     <Container>
                         <SearchBox search={search} onSearchBook={onSearchBook}/>
