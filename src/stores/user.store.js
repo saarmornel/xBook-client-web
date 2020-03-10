@@ -3,11 +3,11 @@ import { getMyUser, getUsers, getUser } from "../services/user.service";
 
 class UserStore {
     users = [];     
-    isLoadingUsers;
+    isLoadingUsers = true;
     currentUser;    
-    isLoadingCurrentUser;
+    isLoadingCurrentUser = true;
     selectedUser;
-    isLoadingSelectedUser;
+    isLoadingSelectedUser = true;
     usersPage= 0;
 
     pullNextPage() {

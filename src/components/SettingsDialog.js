@@ -20,6 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import UserRating from './UserRating';
 
 const useStyles = makeStyles((theme)=>({
     closeButton: {
@@ -67,6 +68,7 @@ const SettingsDialog = ({ handleClose, open,userStore }) => {
         </ListItemAvatar>
         <ListItemText
           primary={userStore.currentUser.fullName}
+          secondary={<UserRating {...userStore.currentUser}/>}
         />
       </ListItem>
       <Divider component="li" />
