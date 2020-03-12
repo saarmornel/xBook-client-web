@@ -22,6 +22,10 @@ class UserStore {
             .finally(action(() => { this.isLoadingCurrentUser = false }));
     }
 
+    updateCurrnet(field,value) {
+        this.currentUser[field]=value;
+    }
+
     pullSelectedUser(id) {
         this.isLoadingSelectedUser = true;
         getUser(id)
@@ -54,6 +58,7 @@ decorate(UserStore, {
     pullNextUsers: action,
     forgetCurrentUser: action,
     usersPage: observable,
+    updateCurrnet: action,
 })
 
 const userStore = new UserStore();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,13 +13,15 @@ import UserAvatar from '../components/UserAvatar';
 import { observer,inject } from "mobx-react";
 import Loading from './Loading';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import {ExitToApp} from '@material-ui/icons';
+import {ExitToApp,Phone,Done} from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import UserRating from './UserRating';
+import TextField from '@material-ui/core/TextField';
+import {genericPhonePattern} from '../config';
 
 function ListItemLink(props) {
     return <ListItem button component="a" {...props} />;
@@ -43,15 +45,48 @@ const useStyles = makeStyles((theme)=>({
     inline: {
     display: 'inline',
     },
+    formIcon: {
+        marginTop: theme.spacing(2)
+    },
+    form: {
+      display: 'flex',
+    },
+    submitButton: {
+      paddingBottom: 0,
+      paddingRight: 0
+    }
 }));
 
 const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
     const theme = useTheme();
     const classes = useStyles();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const [phone,setPhone] = useState((userStore.currentUser&&userStore.currentUser.phone) || '');
     if(userStore.isLoadingCurrentUser) {
-        return <Loading/>
+      return <Loading/>
     }
+    const handleChange=(event)=>{
+      event.persist();
+      console.log(event)
+      switch(event.target.name) {
+        case 'phone':
+          setPhone(event.target.value);
+          break;
+      }
+    }
+    const handleSubmit=(event)=> {
+      event.preventDefault();
+      const name = event.target.name;
+      const value = event.target.value
+      switch(name) {
+        case 'phone':
+          if(!RegExp(genericPhonePattern).test(value)) return;
+        break;
+      }
+      console.log(name,value)
+      //userStore.updateCurrent(id,value);
+    }
+
     return (
     <Dialog
     fullScreen={fullScreen}
@@ -59,7 +94,6 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
     onClose={handleClose}
     aria-labelledby="settings"
     >
-        {/* <DialogTitle id="add-book">{"Add a Book to Your Bookshelf"}</DialogTitle> */}
         <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
             <CloseIcon />
         </IconButton>
@@ -74,6 +108,21 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
           primary={userStore.currentUser.fullName}
           secondary={<UserRating {...userStore.currentUser}/>}
         />
+      </ListItem>
+      <Divider component="li" />
+      <ListItem>
+          <ListItemIcon className={classes.formIcon}>
+            <Phone />
+          </ListItemIcon>
+          <form className={classes.form}
+          noValidate
+          autoComplete="off" onSubmit={(e)=>{handleSubmit(e);return false;}}>
+            <TextField id="phone" label="Phone" variant="standard" name="phone"
+            type="tel" value={phone} onChange={(e)=>handleChange(e)}/>
+            <IconButton type="submit" className={classes.submitButton}>
+              <Done />
+            </IconButton>
+          </form>
       </ListItem>
       <Divider component="li" />
       <ListItemLink onClick={()=>{authStore.logout()}}>
