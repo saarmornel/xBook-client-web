@@ -12,16 +12,20 @@ import CloseIcon from '@material-ui/icons/Close';
 import UserAvatar from '../components/UserAvatar';
 import { observer,inject } from "mobx-react";
 import Loading from './Loading';
-
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import {ExitToApp} from '@material-ui/icons';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import UserRating from './UserRating';
 
+function ListItemLink(props) {
+    return <ListItem button component="a" {...props} />;
+  }
+
+  
 const useStyles = makeStyles((theme)=>({
     closeButton: {
         position: 'absolute',
@@ -41,7 +45,7 @@ const useStyles = makeStyles((theme)=>({
     },
 }));
 
-const SettingsDialog = ({ handleClose, open,userStore }) => {
+const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
     const theme = useTheme();
     const classes = useStyles();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -72,8 +76,13 @@ const SettingsDialog = ({ handleClose, open,userStore }) => {
         />
       </ListItem>
       <Divider component="li" />
+      <ListItemLink onClick={()=>{authStore.logout()}}>
+          <ListItemIcon>
+            <ExitToApp />
+          </ListItemIcon>
+          <ListItemText primary="Logout"/>
+      </ListItemLink>
     </List>
-
         </DialogContent>
     </Dialog>
     );
@@ -83,4 +92,4 @@ SettingsDialog.propTypes = {
     
 };
 
-export default inject('userStore')(observer(SettingsDialog));
+export default inject('userStore','authStore')(observer(SettingsDialog));

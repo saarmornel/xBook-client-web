@@ -16,7 +16,7 @@ class AuthStore {
     logout() {
         this.isLoading = true;
         AsyncStorage.removeItem(authCookie)
-        .then( action(() => {this.token = undefined}) )
+        .then( action(() => {this.token = null}) )
         .finally( action(() => {this.isLoading = false}) );
     }
 
