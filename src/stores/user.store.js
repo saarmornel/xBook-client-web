@@ -1,13 +1,13 @@
 import { observable, autorun, action, computed, decorate, reaction, runInAction } from 'mobx';
-import { getMyUser, getUsers, getUser } from "../services/user.service";
+import { getMyUser, getUsers, getUser, updateMyUser } from "../services/user.service";
 
 class UserStore {
     users = [];     
-    isLoadingUsers;
+    isLoadingUsers = true;
     currentUser;    
-    isLoadingCurrentUser;
+    isLoadingCurrentUser = true;
     selectedUser;
-    isLoadingSelectedUser;
+    isLoadingSelectedUser = true;
     usersPage= 0;
 
     pullNextPage() {
@@ -20,6 +20,13 @@ class UserStore {
         getMyUser()
             .then(action(user => { this.currentUser = user }))
             .finally(action(() => { this.isLoadingCurrentUser = false }));
+    }
+
+    updateCurrent(field,value) {
+        this.currentUser[field]=value;
+        const updatedUser= {};
+        updatedUser[field]=value;
+        updateMyUser(updatedUser);
     }
 
     pullSelectedUser(id) {
@@ -54,6 +61,7 @@ decorate(UserStore, {
     pullNextUsers: action,
     forgetCurrentUser: action,
     usersPage: observable,
+    updateCurrent: action,
 })
 
 const userStore = new UserStore();

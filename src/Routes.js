@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
 import Explore from './screens/Explore';
-import Giveaway from './screens/Giveaway';
+import Bookshelf from './screens/Bookshelf';
 import Requests from './screens/Requests';
 import SignIn from './screens/SignIn';
 import Settings from "./screens/Settings";
@@ -25,7 +25,7 @@ const AppLayout = () => {
   return (
     <Switch>
       <PrivateRoute path="/app/explore" component={Explore} exact></PrivateRoute>
-      <PrivateRoute path="/app/giveaway" component={Giveaway} exact></PrivateRoute>
+      <PrivateRoute path="/app/bookshelf" component={Bookshelf} exact></PrivateRoute>
       <PrivateRoute path="/app/requests" component={Requests} exact></PrivateRoute>
       <PrivateRoute path="/app/settings" component={Settings} exact></PrivateRoute>
       <Redirect exact from="/app" to="/app/explore" />

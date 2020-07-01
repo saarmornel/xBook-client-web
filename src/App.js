@@ -26,6 +26,7 @@ function App() {
     stores.requestStore.pullOutgoing();
     stores.bookStore.pullBooks();
     stores.bookStore.pullMyBooks();
+    stores.userStore.pullCurrentUser();
   }
 
 

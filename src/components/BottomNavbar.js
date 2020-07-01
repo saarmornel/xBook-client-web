@@ -28,7 +28,7 @@ const BottomNavbar = () => {
         className={classes.root}
         >
           <BottomNavigationAction component={Link} to="/app/explore" value="explore" label="Explore" icon={<Search />}></BottomNavigationAction>
-          <BottomNavigationAction component={Link} to="/app/giveaway" label="Giveaway" value="giveaway" icon={<LibraryBooks />}></BottomNavigationAction>  
+          <BottomNavigationAction component={Link} to="/app/bookshelf" label="Bookshelf" value="bookshelf" icon={<LibraryBooks />}></BottomNavigationAction>  
           <BottomNavigationAction component={Link} to="/app/requests" label="Requests" value="requests" icon={<SwapCalls />}></BottomNavigationAction>
           {/* <BottomNavigationAction component={Link} to="/app/settings" label="Settings" value="settings" icon={<Settings />}></BottomNavigationAction> */}
         </BottomNavigation>

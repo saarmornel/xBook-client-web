@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Giveaway = (props) => {
+const Bookshelf = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
@@ -32,7 +32,7 @@ const Giveaway = (props) => {
       if(props.bookStore.isLoadingBooks) return <Loading/>
     return (
         <React.Fragment>
-            {!props.bookStore.isLoadingMyBooks && !props.bookStore.myBooks.length && 
+            {!props.bookStore.myBooks.length && 
             <EmptyState title="No books to show" text="Your books will show up here." logo={logo}/>
             }
             <BookGrid books={props.bookStore.myBooks}/>
@@ -44,4 +44,4 @@ const Giveaway = (props) => {
     );
 };
 
-export default inject('bookStore')(observer(Giveaway));
+export default inject('bookStore')(observer(Bookshelf));
