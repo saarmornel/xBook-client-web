@@ -1,5 +1,4 @@
-import React from 'react';
-import { FB_URL } from "../config";
+import React, {useState} from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,8 +8,9 @@ import { Button, TextField,makeStyles,Container } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Facebook } from '@material-ui/icons';
 import { shareApp } from "../services/helpers";
+import SearchBox from './SearchBox';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
     closeButton: {
@@ -20,16 +20,32 @@ const styles = theme => ({
       color: theme.palette.grey[500],
     },
     button: {
-        margin: theme.spacing(0, 0, 2),
+        margin: theme.spacing(2, 0, 2),
     },
-    paper: {
-        marginTop: theme.spacing(10),
-    }
+
 });
 
 const AddFriendsDialog = ({ handleClose, open, classes }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const [search, setSearch] = useState('');
+    const [results, setResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const onSearchFriend = (name) => {
+        setSearch(name);
+        if(name.length > 2) {
+          setIsLoading(true);
+          setTimeout(()=> {
+            // searchFriend(name)
+            // .then(setResults);
+          },3);
+        } else {
+          setResults([]);
+        }
+        setIsLoading(false);
+      }
+
     return (
         <Dialog
             fullScreen={fullScreen}
@@ -43,17 +59,24 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
             </IconButton>
             <DialogContent>
                     <Container className={classes.paper}>
+                        <SearchBox search={search} onSearch={onSearchFriend}
+                        label="Search friend"/>
+                        { isLoading ? <CircularProgress/>
+                        : false
+                        //<BookList books={results} handleBookSelect={setSelectedId}/>
+                        }
+                        
                         <Button
                             onClick={()=>shareApp()}
                             fullWidth 
                             variant="outlined" 
                             className={classes.button}>Share xBook</Button>
-                        <Button href={FB_URL}
+                        {/* <Button href={FB_URL}
                             fullWidth 
                             variant="contained" 
                             color="primary" 
                             startIcon={<Facebook />}
-                            className={classes.button}>Add Facebook friends</Button>
+                            className={classes.button}>Add Facebook friends</Button> */}
                     </Container>
             </DialogContent>
         </Dialog>
