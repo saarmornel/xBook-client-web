@@ -61,7 +61,7 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
     const theme = useTheme();
     const classes = useStyles();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    
+
     const [phone,setPhone] = useState('');
     useEffect(()=>
     userStore.currentUser&&setPhone(userStore.currentUser.phone),
@@ -86,6 +86,7 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
     const handleSubmit=(name,value) => {
       switch(name) {
         case 'phone':
+          if(!value) break;
           if(!RegExp(genericPhonePattern).test(value)) return;
         break;
       }
