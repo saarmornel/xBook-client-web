@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -61,30 +61,36 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
     const theme = useTheme();
     const classes = useStyles();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const [phone,setPhone] = useState((userStore.currentUser&&userStore.currentUser.phone) || '');
+    
+    const [phone,setPhone] = useState('');
+    useEffect(()=>
+    userStore.currentUser&&setPhone(userStore.currentUser.phone),
+    [userStore.isLoadingCurrentUser]);
+
     if(userStore.isLoadingCurrentUser) {
       return <Loading/>
     }
+
     const handleChange=(event)=>{
       event.persist();
-      console.log(event)
       switch(event.target.name) {
         case 'phone':
           setPhone(event.target.value);
           break;
       }
     }
-    const handleSubmit=(event)=> {
+    const handlePhoneSubmit=(event)=>{
       event.preventDefault();
-      const name = event.target.name;
-      const value = event.target.value
+      handleSubmit('phone',phone);
+    }
+    const handleSubmit=(name,value) => {
       switch(name) {
         case 'phone':
           if(!RegExp(genericPhonePattern).test(value)) return;
         break;
       }
       console.log(name,value)
-      //userStore.updateCurrent(id,value);
+      userStore.updateCurrent(name,value);
     }
 
     return (
@@ -116,7 +122,7 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
           </ListItemIcon>
           <form className={classes.form}
           noValidate
-          autoComplete="off" onSubmit={(e)=>{handleSubmit(e);return false;}}>
+          autoComplete="off" onSubmit={(e)=>{handlePhoneSubmit(e);return false;}}>
             <TextField id="phone" label="Phone" variant="standard" name="phone"
             type="tel" value={phone} onChange={(e)=>handleChange(e)}/>
             <IconButton type="submit" className={classes.submitButton}>

@@ -27,3 +27,11 @@ export const getUser = (id) => {
     })
     .then(handleErrors).then(json)
 }
+
+export const updateMyUser = (updatedUser) => {
+    return fetch(userUrl + '/me', {
+        method: 'PUT',
+        headers: headers(),
+        body: JSON.stringify(updatedUser)
+    }).then(handleErrors).then(json)
+}
