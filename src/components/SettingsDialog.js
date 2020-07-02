@@ -9,19 +9,17 @@ import { Button,makeStyles,Container } from "@material-ui/core";
 import { useTheme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import UserAvatar from '../components/UserAvatar';
 import { observer,inject } from "mobx-react";
 import Loading from './Loading';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import {ExitToApp,Phone,Done} from '@material-ui/icons';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import UserRating from './UserRating';
 import TextField from '@material-ui/core/TextField';
 import {genericPhonePattern} from '../config';
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
+import UserListItem from "./UserListItem";
+import ListItem from '@material-ui/core/ListItem';
 
 function ListItemLink(props) {
     return <ListItem button component="a" {...props} />;
@@ -107,15 +105,7 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
         <DialogContent>
         
     <List className={classes.root}>
-      <ListItem alignItems="center">
-        <ListItemAvatar>
-            <UserAvatar picture={userStore.currentUser.picture} name={userStore.currentUser.fullName}/>
-        </ListItemAvatar>
-        <ListItemText
-          primary={userStore.currentUser.fullName}
-          secondary={<UserRating {...userStore.currentUser}/>}
-        />
-      </ListItem>
+      <UserListItem {...userStore.currentUser}/>
       <Divider component="li" />
       <ListItem>
           <ListItemIcon className={classes.formIcon}>

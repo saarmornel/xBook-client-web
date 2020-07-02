@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Button, TextField,makeStyles,Container } from "@material-ui/core";
+import { Button, TextField,makeStyles,Container, Typography } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { shareApp } from "../services/helpers";
 import SearchBox from './SearchBox';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import UserList from './UserList';
+import { searchUser, getMyFriends } from '../services/user.service';
 
 const styles = theme => ({
     closeButton: {
@@ -31,14 +33,17 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    useEffect(()=>onSearchFriend(),[]);
 
-    const onSearchFriend = (name) => {
+    const onSearchFriend = (name='') => {
         setSearch(name);
-        if(name.length > 2) {
+        if(name.length > 2 || name.length===0) {
           setIsLoading(true);
           setTimeout(()=> {
-            // searchFriend(name)
-            // .then(setResults);
+            (name.length===0 ? 
+              getMyFriends():
+              searchUser(name))
+            .then(setResults);
           },3);
         } else {
           setResults([]);
@@ -61,9 +66,11 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
                     <Container className={classes.paper}>
                         <SearchBox search={search} onSearch={onSearchFriend}
                         label="Search friend"/>
-                        { isLoading ? <CircularProgress/>
-                        : false
-                        //<BookList books={results} handleBookSelect={setSelectedId}/>
+                        
+                        { isLoading ? <CircularProgress/> :
+                        [(search.length === 0 && 
+                        <Typography key="following" variant="subtitle1" gutterBottom={true}>My Following</Typography>),
+                        <UserList key="users" users={results}/> ]
                         }
                         
                         <Button

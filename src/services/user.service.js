@@ -35,3 +35,18 @@ export const updateMyUser = (updatedUser) => {
         body: JSON.stringify(updatedUser)
     }).then(handleErrors).then(json)
 }
+
+
+export const searchUser = (name) => {
+    return fetch(`${userUrl}/search?q=${name}`,{
+        headers: headers()
+    })
+    .then(handleErrors).then(json)
+}
+
+export const getMyFriends = () => {
+    return fetch(`${userUrl}/me/friends`,{
+        headers: headers()
+    })
+    .then(handleErrors).then(json)
+}
