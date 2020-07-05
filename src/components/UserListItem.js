@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import UserRating from './UserRating';
 import UserAvatar from '../components/UserAvatar';
+import { ListItemSecondaryAction, Button } from '@material-ui/core';
 
 const UserListItem = props => (
     <ListItem key={props.id}>
@@ -16,6 +17,9 @@ const UserListItem = props => (
         primary={props.fullName}
         secondary={<UserRating {...props}/>}
         />
+        <ListItemSecondaryAction>
+            {props.children}
+        </ListItemSecondaryAction>
   </ListItem>
 )
 

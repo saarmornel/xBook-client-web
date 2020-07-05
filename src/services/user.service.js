@@ -36,6 +36,20 @@ export const updateMyUser = (updatedUser) => {
     }).then(handleErrors).then(json)
 }
 
+export const addFriend = (id) => {
+    return fetch(userUrl + '/me/friends/'+id, {
+        method: 'PUT',
+        headers: headers(),
+    }).then(handleErrors).then(json)
+}
+
+export const removeFriend = (id) => {
+    return fetch(userUrl + '/me/friends/'+id, {
+        method: 'DELETE',
+        headers: headers(),
+    }).then(handleErrors).then(json)
+}
+
 
 export const searchUser = (name) => {
     return fetch(`${userUrl}/search?q=${name}`,{

@@ -1,5 +1,5 @@
 import { observable, autorun, action, computed, decorate, reaction, runInAction } from 'mobx';
-import { getMyUser, getUsers, getUser, updateMyUser } from "../services/user.service";
+import { getMyUser, getUsers, getUser, updateMyUser,addFriend,removeFriend } from "../services/user.service";
 
 class UserStore {
     users = [];     
@@ -43,6 +43,26 @@ class UserStore {
             .finally(action(() => { this.isLoadingUsers = false; }));
     }
 
+    addFriend(user) {
+        const index = this.currentUser.friends.
+        findIndex(friend => friend.id === user.id);
+        if(index<0) {
+            this.currentUser.friends.push(user);
+            addFriend(user.id)
+            .catch(action(err=>{this.pullCurrentUser();throw err}))
+        }
+    }
+
+    removeFriend(id) {
+        const index = this.currentUser.friends.
+        findIndex(friend => friend.id === id);
+        if(index>-1) {
+            this.currentUser.friends.splice(index,1);
+            removeFriend(id)
+            .catch(action(err=>{this.pullCurrentUser();throw err}))
+        }
+    }
+
     forgetCurrentUser() {
         this.currentUser = undefined;
     }
@@ -62,6 +82,8 @@ decorate(UserStore, {
     forgetCurrentUser: action,
     usersPage: observable,
     updateCurrent: action,
+    addFriend: action,
+    removeFriend: action,
 })
 
 const userStore = new UserStore();

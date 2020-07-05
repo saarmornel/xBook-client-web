@@ -13,6 +13,7 @@ import SearchBox from './SearchBox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import UserList from './UserList';
 import { searchUser, getMyFriends } from '../services/user.service';
+import { inject,observer } from "mobx-react";
 
 const styles = theme => ({
     closeButton: {
@@ -24,25 +25,27 @@ const styles = theme => ({
     button: {
         margin: theme.spacing(2, 0, 2),
     },
+    subtitle: {
+      marginTop: theme.spacing(2)
+    }
 
 });
 
-const AddFriendsDialog = ({ handleClose, open, classes }) => {
+const AddFriendsDialog = ({ handleClose, open, classes,userStore }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [search, setSearch] = useState('');
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    useEffect(()=>onSearchFriend(),[]);
+    useEffect(()=>onSearchFriend(),[userStore.currentUser]);
 
     const onSearchFriend = (name='') => {
         setSearch(name);
-        if(name.length > 2 || name.length===0) {
+        if(name.length===0) return userStore.currentUser&&setResults(userStore.currentUser.friends);
+        if(name.length > 2) {
           setIsLoading(true);
           setTimeout(()=> {
-            (name.length===0 ? 
-              getMyFriends():
-              searchUser(name))
+            searchUser(name)
             .then(setResults);
           },3);
         } else {
@@ -68,8 +71,8 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
                         label="Search friend"/>
                         
                         { isLoading ? <CircularProgress/> :
-                        [(search.length === 0 && 
-                        <Typography key="following" variant="subtitle1" gutterBottom={true}>My Following</Typography>),
+                        [(search.length === 0&&results.length>0 && 
+                        <Typography key="following" variant="subtitle1" className={classes.subtitle}>My Following</Typography>),
                         <UserList key="users" users={results}/> ]
                         }
                         
@@ -90,4 +93,4 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
     );
 };
 
-export default withStyles(styles)(AddFriendsDialog);
+export default inject('userStore')(observer(withStyles(styles)(AddFriendsDialog)));
