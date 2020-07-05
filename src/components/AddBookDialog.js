@@ -4,12 +4,19 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Button,makeStyles,Container } from "@material-ui/core";
+import { Button,makeStyles,Container,Box } from "@material-ui/core";
 import { useTheme } from '@material-ui/core/styles';
 import BookList from './BookList';
 import { searchBook } from '../services/book.service';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import SearchBox from './SearchBox';
+
+const PoweredByGoogle =
+<Box component="span" marginLeft={2}>
+    <a href="https://www.google.com">
+        <img src="https://books.google.com/googlebooks/images/poweredby.png" style={{border: 0}}/>
+    </a>
+</Box>
 
 const AddBookDialog = ({ handleClose, open }) => {
     const theme = useTheme();
@@ -41,10 +48,11 @@ const AddBookDialog = ({ handleClose, open }) => {
             onClose={handleClose}
             aria-labelledby="add-book"
         >
-            <DialogTitle id="add-book">{"Add a Book to Your Bookshelf"}</DialogTitle>
+            <DialogTitle id="add-book">Add a Book to Your Bookshelf</DialogTitle>
             <DialogContent>
                     <Container>
-                        <SearchBox search={search} onSearchBook={onSearchBook}/>
+                        <SearchBox search={search} onSearch={onSearchBook}
+                        label="Search book">{PoweredByGoogle}</SearchBox>
                         { isLoading ? <CircularProgress/>
                             : <BookList books={results} handleBookSelect={setSelectedId}/>}
                     </Container>

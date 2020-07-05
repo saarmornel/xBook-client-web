@@ -1,16 +1,19 @@
-import React from 'react';
-import { FB_URL } from "../config";
+import React, {useState, useEffect} from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Button, TextField,makeStyles,Container } from "@material-ui/core";
+import { Button, TextField,makeStyles,Container, Typography } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Facebook } from '@material-ui/icons';
 import { shareApp } from "../services/helpers";
+import SearchBox from './SearchBox';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import UserList from './UserList';
+import { searchUser, getMyFriends } from '../services/user.service';
+import { inject,observer } from "mobx-react";
 
 const styles = theme => ({
     closeButton: {
@@ -20,16 +23,37 @@ const styles = theme => ({
       color: theme.palette.grey[500],
     },
     button: {
-        margin: theme.spacing(0, 0, 2),
+        margin: theme.spacing(2, 0, 2),
     },
-    paper: {
-        marginTop: theme.spacing(10),
+    subtitle: {
+      marginTop: theme.spacing(2)
     }
+
 });
 
-const AddFriendsDialog = ({ handleClose, open, classes }) => {
+const AddFriendsDialog = ({ handleClose, open, classes,userStore }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const [search, setSearch] = useState('');
+    const [results, setResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    useEffect(()=>onSearchFriend(),[userStore.currentUser]);
+
+    const onSearchFriend = (name='') => {
+        setSearch(name);
+        if(name.length===0) return userStore.currentUser&&setResults(userStore.currentUser.friends);
+        if(name.length > 2) {
+          setIsLoading(true);
+          setTimeout(()=> {
+            searchUser(name)
+            .then(setResults);
+          },3);
+        } else {
+          setResults([]);
+        }
+        setIsLoading(false);
+      }
+
     return (
         <Dialog
             fullScreen={fullScreen}
@@ -43,21 +67,30 @@ const AddFriendsDialog = ({ handleClose, open, classes }) => {
             </IconButton>
             <DialogContent>
                     <Container className={classes.paper}>
+                        <SearchBox search={search} onSearch={onSearchFriend}
+                        label="Search friend"/>
+                        
+                        { isLoading ? <CircularProgress/> :
+                        [(search.length === 0&&results.length>0 && 
+                        <Typography key="following" variant="subtitle1" className={classes.subtitle}>My Following</Typography>),
+                        <UserList key="users" users={results}/> ]
+                        }
+                        
                         <Button
                             onClick={()=>shareApp()}
                             fullWidth 
                             variant="outlined" 
                             className={classes.button}>Share xBook</Button>
-                        <Button href={FB_URL}
+                        {/* <Button href={FB_URL}
                             fullWidth 
                             variant="contained" 
                             color="primary" 
                             startIcon={<Facebook />}
-                            className={classes.button}>Add Facebook friends</Button>
+                            className={classes.button}>Add Facebook friends</Button> */}
                     </Container>
             </DialogContent>
         </Dialog>
     );
 };
 
-export default withStyles(styles)(AddFriendsDialog);
+export default inject('userStore')(observer(withStyles(styles)(AddFriendsDialog)));

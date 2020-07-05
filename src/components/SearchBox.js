@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {TextField, Container, makeStyles, Box} from '@material-ui/core';
 
-const PoweredByGoogle =
-<Box component="span" marginLeft={2}>
-    <a href="https://www.google.com">
-        <img src="https://books.google.com/googlebooks/images/poweredby.png" style={{border: 0}}/>
-    </a>
-</Box>
-
 
 const useStyles = makeStyles(theme=>({
     searchBox: {
@@ -17,16 +10,16 @@ const useStyles = makeStyles(theme=>({
     }
 }));
 
-const SearchBox = ({search, onSearchBook}) => {
+const SearchBox = ({search, onSearch,label,children}) => {
     const classes = useStyles();
     
     return (
         <div className={classes.searchBox}>
             <TextField
-            onChange={(event)=> onSearchBook(event.target.value)}
+            onChange={(event)=> onSearch(event.target.value)}
             value={search}
-            id="search-book" label="Search book" />
-            {PoweredByGoogle}
+            id="search-box" label={label} />
+            {children}
         </div>
 
     )
@@ -35,7 +28,9 @@ const SearchBox = ({search, onSearchBook}) => {
 
 SearchBox.propTypes = {
     search: PropTypes.string,
-    onSearchBook: PropTypes.func
+    onSearch: PropTypes.func,
+    label: PropTypes.string,
+    children: PropTypes.node,
 };
 
 export default SearchBox;
