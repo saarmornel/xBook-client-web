@@ -20,6 +20,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import UserListItem from "./UserListItem";
 import ListItem from '@material-ui/core/ListItem';
+import Snackbar from '@material-ui/core/Snackbar';
 
 function ListItemLink(props) {
     return <ListItem button component="a" {...props} />;
@@ -60,6 +61,20 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
     const classes = useStyles();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const [barOpen, setBarOpen] = React.useState(false);
+
+    const handleClick = () => {
+      setBarOpen(true);
+    };
+  
+    const handleBarClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setBarOpen(false);
+    };
+
     const [phone,setPhone] = useState('');
     useEffect(()=>
     userStore.currentUser&&setPhone(userStore.currentUser.phone),
@@ -90,6 +105,7 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
       }
       console.log(name,value)
       userStore.updateCurrent(name,value);
+      setBarOpen(true)
     }
 
     return (
@@ -130,6 +146,24 @@ const SettingsDialog = ({ handleClose, open,userStore,authStore }) => {
       </ListItemLink>
     </List>
         </DialogContent>
+
+        <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={barOpen}
+        autoHideDuration={6000}
+        onClose={handleBarClose}
+        message="User Updated"
+        action={
+          <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleBarClose}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
     </Dialog>
     );
 };
