@@ -7,7 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import IncomingRequests from '../components/IncomingRequests';
 import OutgoingRequests from '../components/OutgoingRequests';
-
+import Badge from '@material-ui/core/Badge';
+import {inject,observer} from 'mobx-react'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -39,10 +40,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Requests = () => {
+const Requests = (props) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -66,4 +66,4 @@ const Requests = () => {
       );
 };
 
-export default Requests;
+export default inject('requestStore')(observer(Requests));

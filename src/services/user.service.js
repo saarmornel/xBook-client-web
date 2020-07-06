@@ -38,7 +38,7 @@ export const updateMyUser = (updatedUser) => {
 
 export const addFriend = (id) => {
     return fetch(userUrl + '/me/friends/'+id, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: headers(),
     }).then(handleErrors).then(json)
 }
