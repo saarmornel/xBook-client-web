@@ -18,7 +18,7 @@ const MyComponent = React.forwardRef(function MyComponent(props, ref) {
 
 const UserRating = props => {
     return (
-    <Tooltip title={`Gave ${props.given} books/Got ${props.received} books`} arrow>
+    <Tooltip title={props.given&&props.received?`Gave ${props.given} books/Got ${props.received} books`:''} arrow>
         <MyComponent stars={props.stars}/>
     </Tooltip>
 

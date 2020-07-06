@@ -1,5 +1,6 @@
 import { observable, autorun, action, computed, decorate, reaction, runInAction } from 'mobx';
 import { getMyUser, getUsers, getUser, updateMyUser,addFriend,removeFriend } from "../services/user.service";
+import bookStore from './book.store';
 
 class UserStore {
     users = [];     
@@ -9,6 +10,11 @@ class UserStore {
     selectedUser;
     isLoadingSelectedUser = true;
     usersPage= 0;
+    bookStore;
+
+    constructor(bookStore) {
+        this.bookStore = bookStore;
+    }
 
     pullNextPage() {
         this.usersPage++;
@@ -49,6 +55,7 @@ class UserStore {
         if(index<0) {
             this.currentUser.friends.push(user);
             addFriend(user.id)
+            .then(()=>this.bookStore.pullBooks())
             .catch(action(err=>{this.pullCurrentUser();throw err}))
         }
     }
@@ -59,6 +66,7 @@ class UserStore {
         if(index>-1) {
             this.currentUser.friends.splice(index,1);
             removeFriend(id)
+            .then(()=>this.bookStore.pullBooks())
             .catch(action(err=>{this.pullCurrentUser();throw err}))
         }
     }
@@ -86,5 +94,5 @@ decorate(UserStore, {
     removeFriend: action,
 })
 
-const userStore = new UserStore();
+const userStore = new UserStore(bookStore);
 export default userStore;

@@ -20,9 +20,9 @@ const UserBookCard = (props) => {
         color="primary">
           {isRequested ? 'Requested' : 'Request'}
         </Button>
-        <Link href="/app/requests" variant="body2">
+        {isRequested&&<Link href="/app/requests" variant="body2">
           Go to Requests
-        </Link>
+        </Link>}
     </CardActions>
     )
 

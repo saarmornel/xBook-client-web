@@ -17,7 +17,11 @@ class BookStore {
     pullBooks() {
         this.isLoadingBooks = true;
         getBooks(this.booksPage)
-            .then(action(books => { this.books = this.books.concat(books) }))
+            .then(action(books => { 
+                this.books = books;
+                // for pagination uncomment
+                // this.books = this.books.concat(books)
+             }))
             .finally(action(() => { this.isLoadingBooks = false; }));
     }
 
