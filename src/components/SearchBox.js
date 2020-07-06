@@ -16,6 +16,7 @@ const SearchBox = ({search, onSearch,label,children}) => {
     return (
         <div className={classes.searchBox}>
             <TextField
+            type="search"
             onChange={(event)=> onSearch(event.target.value)}
             value={search}
             id="search-box" label={label} />
