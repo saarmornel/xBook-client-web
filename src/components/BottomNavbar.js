@@ -5,6 +5,8 @@ import { Add, Search, Explore,Book,LibraryBooks, SwapCalls,Settings } from '@mat
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useLocation } from "react-router-dom";
+import { Badge } from '@material-ui/core';
+import { inject,observer } from 'mobx-react';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -13,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const BottomNavbar = () => {
+const BottomNavbar = (props) => {
     const [value, setValue] = React.useState('explore');
     const classes = useStyles();
     const location = useLocation();
@@ -29,10 +31,10 @@ const BottomNavbar = () => {
         >
           <BottomNavigationAction component={Link} to="/app/explore" value="explore" label="Explore" icon={<Search />}></BottomNavigationAction>
           <BottomNavigationAction component={Link} to="/app/bookshelf" label="Bookshelf" value="bookshelf" icon={<LibraryBooks />}></BottomNavigationAction>  
-          <BottomNavigationAction component={Link} to="/app/requests" label="Requests" value="requests" icon={<SwapCalls />}></BottomNavigationAction>
+          <BottomNavigationAction component={Link} to="/app/requests" label="Requests" value="requests" icon={<Badge badgeContent={props.requestStore.unread} color="error"><SwapCalls /></Badge>}></BottomNavigationAction>
           {/* <BottomNavigationAction component={Link} to="/app/settings" label="Settings" value="settings" icon={<Settings />}></BottomNavigationAction> */}
         </BottomNavigation>
     );
 };
 
-export default BottomNavbar;
+export default inject('requestStore')(observer(BottomNavbar));

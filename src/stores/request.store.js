@@ -44,12 +44,29 @@ class RequestStore {
             } 
         }))
     }
+
+    get unread() {
+        return this.unreadIncoming+this.unreadOutgoing;
+    }
+
+    get unreadIncoming() {
+        const reducer = (count, request) => +!request.read+count;
+        return this.incoming.reduce(reducer,0);
+    }
+
+    get unreadOutgoing() {
+        const reducer = (count, request) => +!request.read+count;
+        return this.outgoing.reduce(reducer,0);
+    }
 }
 decorate(RequestStore, {
     incoming: observable,
     outgoing: observable,
     addRequest: action,
-    updateReuestStatus: action
+    updateReuestStatus: action,
+    unread: computed,
+    unreadOutgoing: computed,
+    unreadIncoming: computed,
 })
 
 const requestStore = new RequestStore(bookStore);

@@ -39,16 +39,15 @@ export const deleteRequest = async (request) => {
 
 export const updateRequestStatus = async (request,status) => {
     return fetch(requestUrl + '/' + request, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: headers(),
         body: JSON.stringify({status})
     }).then(handleErrors).then(json);
 }
 
 export const updateRequestRead = async (request) => {
-    return fetch(requestUrl + '/' + request, {
-        method: 'PUT',
+    return fetch(requestUrl + '/' + request + '/read', {
+        method: 'PATCH',
         headers: headers(),
-        body: JSON.stringify({read: {receiving: true}})
     }).then(handleErrors).then(json);
 }
