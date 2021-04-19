@@ -17,3 +17,5 @@ xBook is mobile-first web app written with the following technologies:
   * Using Google Books API
 
 
+![S00301-195631(1)](https://user-images.githubusercontent.com/29688798/115312495-1a0be000-a17a-11eb-8c90-11c48e0f3765.jpg)
+![S00301-195709(1)](https://user-images.githubusercontent.com/29688798/115312502-1bd5a380-a17a-11eb-9c27-9b749d0a9d7a.jpg)
